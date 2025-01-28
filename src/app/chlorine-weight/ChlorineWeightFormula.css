@@ -1,0 +1,20 @@
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust as needed */
+    text-align: center;
+}
+
+h1{
+    margin-bottom: 20px;
+}
+
+p{
+    margin-top: 0;
+}
+
+label{
+    margin: 10px;
+}
