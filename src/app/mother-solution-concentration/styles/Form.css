@@ -1,0 +1,50 @@
+.form {
+  display: flex;
+  align-items: left;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.input-wrapper {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.button-wrapper {
+  height: 20%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.button-wrapper button {
+  height: 45%;
+  border-radius: 5px;
+}
+
+.clear-button {
+  width: 25%;
+  background-color: #6c6b6b;
+  color: white;
+  font-weight: bold;
+  margin: auto;
+}
+
+.clear-button:hover {
+  background-color: rgb(63, 62, 62);
+}
+
+.submit-button {
+  width: 25%;
+  background-color: rgb(72, 72, 198);
+  color: white;
+  font-weight: bold;
+  margin: auto;
+}
+
+.submit-button:hover {
+  background-color: darkblue;
+}
