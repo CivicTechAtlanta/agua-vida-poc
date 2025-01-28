@@ -93,9 +93,9 @@ export default function ChlorineWeightFormula() {
             {showText ? (
                 <p>The weight of chlorine needed is: {chlorineWeight} grams</p>
             ) : (
-                <button onClick={handleClick}>Show Chlorine Weight</button>
+                <button className="button" onClick={handleClick}>Show Chlorine Weight</button>
             )}
-                <button onClick={handleClear}>Clear</button>
+                <button className="button" onClick={handleClear}>Clear</button>
 
         </div>
     );

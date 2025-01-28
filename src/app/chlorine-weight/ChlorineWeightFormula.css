@@ -7,6 +7,10 @@
     text-align: center;
 }
 
+.button{
+    margin-top: 20px;
+}
+
 h1{
     margin-bottom: 20px;
 }
@@ -15,6 +19,7 @@ p{
     margin-top: 0;
 }
 
-label{
-    margin: 10px;
+*{
+    padding: 10px;
+    box-sizing: border-box;
 }
