@@ -1,19 +1,36 @@
-var mother_solution_volume = 600 // liters
-var drip_rate = 2 // liters/hour
+"use client";
 
-var refill_time = mother_solution_volume / drip_rate
-
-function printRefillTimeInDays() {
-    console.log("In days, that is: " + refill_time / 24 + " days");
-}
-
-printRefillTimeInDays();
+import { useEffect, useState } from "react";
 
 export default function RefillTimeFormula() {
+    const [motherSolutionVolume, setMotherSolutionVolume] = useState<number>(0)
+    const [dripRate, setDripRate] = useState<number>(0)
+    const [refillTime, setRefillTime] = useState<number>(0)
+
+    useEffect(() => {
+        if (dripRate <= 0) {
+            setRefillTime(0)
+            return;
+        }
+        setRefillTime(motherSolutionVolume / dripRate)
+    }, [motherSolutionVolume, dripRate])
+
     return (
         <div>
             <h1>Refill Time Formula</h1>
-            <p>Refill time is: {refill_time} hours</p>
+            <div>
+                <label>Mother Solution Volume</label>
+                <input type="number" value={motherSolutionVolume} onChange={(event) => { setMotherSolutionVolume(Number(event.target.value)) }} />
+            </div>
+            <div>
+                <label>Drip rate</label>
+                <input type="number" value={dripRate} onChange={(event) => { setDripRate(Number(event.target.value)) }} />
+            </div>
+            <p>Refill time is: {refillTime} hours</p>
+            <button onClick={() => {
+                setMotherSolutionVolume(0)
+                setDripRate(0)
+            }}>Clear</button>
         </div>
     );
 }
