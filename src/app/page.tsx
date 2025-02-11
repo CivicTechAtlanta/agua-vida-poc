@@ -21,6 +21,9 @@ export default function Home() {
         <li>
           <Link href="/reservoir-ingress">Reservoir Ingress</Link>
         </li>
+        <li>
+          <Link href="/lang-test">Language Test</Link>
+        </li>
       </ul>
       </main>
     </div>
