@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   margin: auto;
+  color: var(--dark-text);
   background-color: rgb(236, 236, 236);
 }
 
