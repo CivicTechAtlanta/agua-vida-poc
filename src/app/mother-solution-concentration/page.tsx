@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Form from "./components/Form";
 import "./styles/Main.css";
+import Link from "next/link";
 
 var mother_solution_volume = 600; // liters
 var weight_of_chlorine = 100; // grams
@@ -15,7 +16,7 @@ function printMotherSolutionConcentration() {
   console.log(
     "The concentration of the mother solution is: " +
       concentration_mother_solution +
-      " miligrams/liter"
+      " milligrams/liter"
   );
 }
 
@@ -53,7 +54,7 @@ export default function MotherSolutionConcentrationFormula() {
           </div>
         </div>
         <div className="footer">
-            <a href="/">Return to home</a>
+            <Link href="/">Return to home</Link>
           </div>
       </div>
     </div>
