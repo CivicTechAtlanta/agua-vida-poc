@@ -29,6 +29,11 @@ export default function Form({ onCalculate }: FormProps) {
 
   const clear = () => {
     onCalculate(0);
+    setFormData({
+      motherSolutionVolume: 0,
+      weightOfChlorine: 0,
+      desiredReservoirConcentration: 0,
+    });
   }
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -38,9 +43,15 @@ export default function Form({ onCalculate }: FormProps) {
       weightOfChlorine,
       desiredReservoirConcentration,
     } = formData;
-    const newConcentratedMotherSolution =
-      (weightOfChlorine * 10 * desiredReservoirConcentration) /
-      motherSolutionVolume;
+
+    let newConcentratedMotherSolution;
+    if (motherSolutionVolume != 0) {
+      newConcentratedMotherSolution =
+          (weightOfChlorine * 10 * desiredReservoirConcentration) /
+          motherSolutionVolume;
+    } else {
+      newConcentratedMotherSolution = 0;
+    }
 
     onCalculate(newConcentratedMotherSolution);
   };

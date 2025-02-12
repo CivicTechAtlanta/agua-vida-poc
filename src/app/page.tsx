@@ -19,7 +19,7 @@ export default function Home() {
           <Link href="/refill-time">Refill Time</Link> 
         </li>
         <li>
-          <Link href="/reservoir-ingress">Reservoir Ingress</Link>
+          <Link href="/flow-rate">Flow Rate</Link>
         </li>
       </ul>
       </main>
