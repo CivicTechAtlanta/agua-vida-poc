@@ -24,7 +24,7 @@ export default function ChlorineWeightFormula() {
 
 
     //Calculate the weight of chlorine needed
-    var chlorineWeight = .36 * ((Number(motherSolution) * Number(waterIngress) * Number(desiredConcentration)) / (Number(dripRate) * Number(chlorinePercentage)))
+    const chlorineWeight = .36 * ((Number(motherSolution) * Number(waterIngress) * Number(desiredConcentration)) / (Number(dripRate) * Number(chlorinePercentage)))
 
     function printChlorineFormula() {    
         console.log("The weight of chlorine needed is: " + chlorineWeight + " grams");
