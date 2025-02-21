@@ -1,14 +1,14 @@
-var containerSize = 20  // liters
+const containerSize = 20  // liters
 
-var tryOne = 20 // seconds
-var tryTwo = 25
-var tryThree = 22
+const tryOne = 20 // seconds
+const tryTwo = 25
+const tryThree = 22
 
-var sum = tryOne + tryTwo + tryThree
+const sum = tryOne + tryTwo + tryThree
 
-var avg = sum / 3
+const avg = sum / 3
 
-var ingress = containerSize / avg  // liters/second
+const ingress = containerSize / avg  // liters/second
 
 function printIngressFormula() {
     console.log("The ingress formula is: " + ingress + " liters/second");

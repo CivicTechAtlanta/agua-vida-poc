@@ -2,12 +2,13 @@
 import { useState } from "react";
 import Form from "./components/Form";
 import "./styles/Main.css";
+import Link from "next/link";
 
-var mother_solution_volume = 600; // liters
-var weight_of_chlorine = 100; // grams
-var desired_reservoir_concentration = 1; // miligrams/liter
+const mother_solution_volume = 600; // liters
+const weight_of_chlorine = 100; // grams
+const desired_reservoir_concentration = 1; // miligrams/liter
 
-var concentration_mother_solution =
+const concentration_mother_solution =
   (weight_of_chlorine * 10 * desired_reservoir_concentration) /
   mother_solution_volume; // miligrams/liter
 
@@ -53,7 +54,7 @@ export default function MotherSolutionConcentrationFormula() {
           </div>
         </div>
         <div className="footer">
-            <a href="/">Return to home</a>
+            <Link href="/">Return to home</Link>
           </div>
       </div>
     </div>
