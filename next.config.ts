@@ -7,7 +7,8 @@ const withSerwist = withSerwistInit({
 })
 
 const nextConfig: NextConfig = {
-  output: 'export'
+  output: 'export',
+  basePath: '/agua-vida-poc'
 };
 
 export default withSerwist(nextConfig);
