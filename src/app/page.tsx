@@ -31,6 +31,9 @@ export default function Home() {
           <Link href="/refill-time">{t('Refill Time')}</Link> 
         </li>
         <li>
+          <Link href="/flow-rate">{t('Flow Rate')}</Link>
+        </li>
+        <li>
           <Link href="/reservoir-ingress">{t('Reservoir Ingress')}</Link>
         </li>
         <li>
