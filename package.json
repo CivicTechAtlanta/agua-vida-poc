@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "post-build": "./manifest-path-fixup.sh",
     "start": "next start",
     "lint": "next lint"
   },
