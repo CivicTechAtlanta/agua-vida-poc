@@ -1,7 +1,7 @@
 name: Deploy to Github Pages
 on:
   push:
-    branches: ["main", "PWA-time"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
