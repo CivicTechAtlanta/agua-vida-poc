@@ -1,0 +1,17 @@
+{
+  "name": "Agua Vida",
+  "short_name": "Agua Vida",
+  "icons": [
+    {
+      "src": "vercel.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "https://civictechatlanta.github.io/agua-vida-poc/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
