@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "post-build": "./manifest-path-fixup.sh",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "i18n": "^0.15.1",
     "i18next": "^24.2.2",
+    "@serwist/next": "^9.0.11",
     "next": "^15.1.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -23,6 +25,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.4",
+    "serwist": "^9.0.11",
     "typescript": "^5"
   }
 }
