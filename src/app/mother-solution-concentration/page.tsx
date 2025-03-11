@@ -16,7 +16,7 @@ function printMotherSolutionConcentration() {
   console.log(
     "The concentration of the mother solution is: " +
       concentration_mother_solution +
-      " miligrams/liter"
+      " milligrams/liter"
   );
 }
 
