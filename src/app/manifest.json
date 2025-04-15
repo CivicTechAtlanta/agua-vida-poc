@@ -3,10 +3,13 @@
   "short_name": "Agua Vida",
   "icons": [
     {
-      "src": "vercel.svg",
+      "src": "Agua-vida-sample-icon-192px.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "maskable"
+      "type": "image/png"
+    },{
+      "src": "Agua-vida-sample-icon-512px.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
   "theme_color": "#FFFFFF",
