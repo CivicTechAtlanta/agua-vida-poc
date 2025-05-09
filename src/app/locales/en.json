@@ -33,5 +33,11 @@
     "L": "L",
     "Clear": "Clear",
     "Submit": "Submit",
-    "Return to home": "Return to home"
+    "Return to home": "Return to home",
+    "Reservoir Ingress Flow Rate Formula":"Reservoir Ingress Flow Rate Formula",
+    "The flow rate for the reservoir ingress is":"The flow rate for the reservoir ingress is",
+    "Container Size":"Container Size",
+    "Try One":"Try One",
+    "Try Two":"Try Two",
+    "Try Three":"Try Three"
 }

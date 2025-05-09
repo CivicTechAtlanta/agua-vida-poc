@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Geist, Geist_Mono, Roboto, Advent_Pro, ABeeZee, Flamenco } from "next/font/google";
+import "./globals.scss";
+
+const advent = Advent_Pro({
+  variable: "--font-advent",
+  weight: '400',
+});
+
+const flamenco = Flamenco({
+  variable: "--font-flamenco",
+  weight: '400',
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -10,6 +20,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const roboto = Roboto({
+  variable: "--font-roboto",
+  subsets: ["latin"],
+  weight: '400',
 });
 
 const APP_NAME = "Agua Vida"
@@ -38,8 +54,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head/>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <head />
+      <body className={`${flamenco.variable} ${advent.variable} ${geistSans.variable} ${geistMono.variable}`}>
         {children}
       </body>
     </html>

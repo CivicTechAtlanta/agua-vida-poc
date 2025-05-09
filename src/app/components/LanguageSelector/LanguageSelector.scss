@@ -1,0 +1,33 @@
+.language-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: inherit;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #5e5e5e;
+  width: 100%;
+  max-width: 85vw;
+}
+
+.language-selector button {
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  background-color: inherit;
+  color: #a8c7fa;
+  padding: 1px 5px 0 5px;
+}
+
+.language-selector button:hover {
+  color: #8ab4f8;
+}
+
+
+.divider {
+  font-size: 1.4rem;
+  line-height: 1.4rem;
+  color: #b7b7b7;
+  padding: 0 !important;
+  margin: 0 !important;
+}

@@ -31,7 +31,14 @@
     "grams": "gramos",
     "mg": "mg",
     "L": "L",
+    "s": "s",
     "Clear": "Limpiar",
     "Submit": "Enviar",
-    "Return to home": "Volver al inicio"
+    "Return to home": "Volver al inicio",
+    "Reservoir Ingress Flow Rate Formula": "Fórmula del caudal de entrada del yacimiento",
+    "The flow rate for the reservoir ingress is": "El caudal de entrada al depósito es",
+    "Container Size": "Tamaño del contenedor",
+    "Try One": "Pruebe uno",
+    "Try Two": "Pruebe dos",
+    "Try Three": "Pruebe tres"
 }
