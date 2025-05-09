@@ -1,0 +1,94 @@
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000;
+  opacity: 0.5;
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 1050;
+  background-color: #fff;
+  margin: 15px;
+  height: fit-content;
+  color: #000;
+  width: 90%;
+  height: 90%;
+  max-width: 700px;
+  max-height: 700px;
+  margin: 0 auto;
+}
+
+.modal-header {
+  cursor: default;
+  margin: 20px 0 10px 0;
+}
+
+.carousel {
+  height: 100%;
+  position: relative;
+}
+
+.btn-container {
+  position: absolute;
+  top: 50%;
+  cursor: pointer;
+}
+
+.btn-prev,
+.btn-next {
+  outline: none;
+  z-index: 1000;
+  border: none;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  color: #fff;
+  font-size: 30px;
+  font-family: var(--font-advent);
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  padding: 0;
+}
+
+.btn-container.prev {
+  left: 20px;
+}
+
+.btn-container.next {
+  right: 20px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  font-family: var(--font-flamenco);
+  font-size: 30px;
+  
+}

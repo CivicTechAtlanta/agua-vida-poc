@@ -1,0 +1,156 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --light-text: #ffffff;
+  --dark-text: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+* {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.pageHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    margin: 0;
+    padding: 0;
+    vertical-align: bottom;
+    line-height: 40px;
+  }
+
+  svg {
+    margin: 0 7px;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  padding: 15px 10px;
+  font-size: 1rem;
+}
+
+.button {
+  margin-top: 20px;
+  border-radius: 2px;
+  border: none;
+  outline: none;
+}
+
+.button.primary {
+  background-color: #4848c6;
+  color: #fff;
+  border: none;
+  outline: none;
+}
+
+.button.primary:hover {
+  opacity: .7;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // height: 100vh;
+  /* Adjust as needed */
+  text-align: center;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 100%;
+  max-width: 350px;
+  height: 100%;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 15px 0;
+
+  input {
+    width: 100%;
+    padding: 15px 10px;
+    font-size: 1rem;
+  }
+
+  p {
+    padding: 0px;
+    margin: 5px 0 15px 0;
+    font-size: 1rem;
+  }
+}
+
+.button {
+  width: 100%;
+}
+
+.result-wrapper {
+  margin-top: 2.5%;
+  padding-top: 2.5%;
+  border-top: 2px solid black;
+  display: flex;
+  height: 25%;
+  flex-direction: column;
+  text-align: center;
+}
+
+.result-wrapper h2 {
+  height: 15%;
+}
+
+.answer {
+  font-size: 2rem;
+  margin: 0 0 20px 0;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

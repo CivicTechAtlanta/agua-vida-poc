@@ -1,44 +1,25 @@
 "use client"; // react-i18next is incompatible with React Server Components. This line of code is needed to give it context.
 
-import styles from "./page.module.css";
-import Link from "next/link";
-
-// Language Translations
 import { useTranslation } from "react-i18next";
-import "./i18n";
+
+import './page.scss';
+
+import Link from "next/link";
+import LanguageSelector from "./components/LanguageSelector/LanguageSelector";
 
 export default function Home() {
-  const { t, i18n } = useTranslation();
-  const switchLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'es' : 'en';
-    i18n.changeLanguage(newLang);
-  }
+  const { t } = useTranslation();
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <ul>
-        <li>
-          <Link href="">{t('Home')}</Link>
-        </li>
-        <li>
-          <Link href="/chlorine-weight">{t('Chlorine Weight Formula')}</Link>
-        </li>
-        <li>
-          <Link href="/mother-solution-concentration">{t('Mother Solution Concentration')}</Link>
-        </li>
-        <li>
-          <Link href="/refill-time">{t('Refill Time')}</Link> 
-        </li>
-        <li>
-          <Link href="/reservoir-ingress">{t('Reservoir Ingress')}</Link>
-        </li>
-        <li>
-          <Link href="/lang-test">{t('Language Test')}</Link>
-        </li>
-      </ul>
+    <div className='page'>
+      <main className='main'>
+        <Link className='go-to-page' href="/chlorine-weight">{t('Chlorine Weight Formula')}</Link>
+        <Link className='go-to-page' href="/mother-solution-concentration">{t('Mother Solution Concentration')}</Link>
+        <Link className='go-to-page' href="/refill-time">{t('Refill Time')}</Link>
+        <Link className='go-to-page' href="/reservoir-ingress">{t('Reservoir Ingress')}</Link>
+        {/* <Link className='go-to-page' href="/lang-test">{t('Language Test')}</Link> */}
 
-      <button onClick={switchLanguage}>{t('button')}</button>
+        <LanguageSelector></LanguageSelector>
       </main>
     </div>
   );

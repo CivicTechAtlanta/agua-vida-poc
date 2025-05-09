@@ -1,5 +1,6 @@
 import withSerwistInit from "@serwist/next";
 import type { NextConfig } from "next";
+// const path = require('path');
 
 const withSerwist = withSerwistInit({
   swSrc: 'src/app/sw.ts',
@@ -8,7 +9,7 @@ const withSerwist = withSerwistInit({
 
 const nextConfig: NextConfig = {
   output: 'export',
-  basePath: '/agua-vida-poc'
+  basePath: '/agua-vida-poc',
 };
 
 export default withSerwist(nextConfig);

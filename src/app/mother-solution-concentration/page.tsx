@@ -1,8 +1,14 @@
 "use client";
+
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import Form from "./components/Form";
+import Home from "./../components/Home/Home";
+import LanguageSelector from "../components/LanguageSelector/LanguageSelector";
+
 import "./styles/Main.css";
-import Link from "next/link";
+
 
 const mother_solution_volume = 600; // liters
 const weight_of_chlorine = 100; // grams
@@ -15,14 +21,16 @@ const concentration_mother_solution =
 function printMotherSolutionConcentration() {
   console.log(
     "The concentration of the mother solution is: " +
-      concentration_mother_solution +
-      " milligrams/liter"
+    concentration_mother_solution +
+    " milligrams/liter"
   );
 }
 
 printMotherSolutionConcentration();
 
 export default function MotherSolutionConcentrationFormula() {
+  const { t } = useTranslation();
+
   const [concentratedMotherSolution, setConcentratedMotherSolution] =
     useState(0);
 
@@ -31,32 +39,20 @@ export default function MotherSolutionConcentrationFormula() {
   };
 
   return (
-    <div className="page">
-      <div className="main-content-wrapper">
-        <div className="main-content">
-          <div className="header-wrapper">
-            <h1 className="page-header">
-              Mother Solution Concentration Formula
-            </h1>
-          </div>
-          <div className="form-wrapper">
-            <Form onCalculate={handleCalculate}></Form>
-          </div>
-          <div className="result-wrapper">
-            <h2>The concentration of the mother solution is:</h2>
-            <div className="result-container">
-              <div>
-                <p className="answer">
-                  {concentratedMotherSolution.toFixed(2)} mg/L
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="footer">
-            <Link href="/">Return to home</Link>
-          </div>
+    <div className="center">
+      <Home></Home>
+      <h1 className="page-header">{t('Mother Solution Concentration Formula')}</h1>
+      <Form onCalculate={handleCalculate}></Form>
+
+      <div className="result-wrapper">
+        <h2>{`${t('The concentration of the mother solution is')}:`}</h2>
+
+        <p className="answer">
+          {`${concentratedMotherSolution.toFixed(2)} ${t('mg')}/${t('L')}`}
+        </p>
       </div>
+
+      <LanguageSelector></LanguageSelector>
     </div>
   );
 }
