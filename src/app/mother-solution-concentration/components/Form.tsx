@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import Input from "./Input";
 import "../styles/Form.css";
 
@@ -9,6 +11,8 @@ type FormProps = {
 };
 
 export default function Form({ onCalculate }: FormProps) {
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState<{
     motherSolutionVolume: number;
     weightOfChlorine: number;
@@ -47,8 +51,8 @@ export default function Form({ onCalculate }: FormProps) {
     let newConcentratedMotherSolution;
     if (motherSolutionVolume != 0) {
       newConcentratedMotherSolution =
-          (weightOfChlorine * 10 * desiredReservoirConcentration) /
-          motherSolutionVolume;
+        (weightOfChlorine * 10 * desiredReservoirConcentration) /
+        motherSolutionVolume;
     } else {
       newConcentratedMotherSolution = 0;
     }
@@ -56,42 +60,37 @@ export default function Form({ onCalculate }: FormProps) {
     onCalculate(newConcentratedMotherSolution);
   };
 
-  const motherSolutionVolumeLabel = "Mother Solution Volume (L)";
-  const weightOfChlorineLabel = "Weight of Chlorine (g)";
-  const desiredReservoirConcentrationLabel =
-    "Desired Reservoir Concentration (mg/L)";
+  const motherSolutionVolumeLabel = `${t('Mother Solution Volume')} (${t('L')})`;
+  const weightOfChlorineLabel = `${'Weight of Chlorine'} (${t('g')})`;
+  const desiredReservoirConcentrationLabel = `${'Desired Reservoir Concentration'} (${t('mg')}/${t('L')})`;
 
   return (
     <form className="form" onSubmit={handleSubmit}>
-      <div className="input-wrapper">
-        <Input
-          label={motherSolutionVolumeLabel}
-          name="motherSolutionVolume"
-          min="0.01"
-          handleChange={handleChange}
-        ></Input>
-        <Input
-          label={weightOfChlorineLabel}
-          name="weightOfChlorine"
-          min="0"
-          handleChange={handleChange}
-        ></Input>
-        <Input
-          label={desiredReservoirConcentrationLabel}
-          name="desiredReservoirConcentration"
-          min="0"
-          handleChange={handleChange}
-        ></Input>
-      </div>
+      <Input
+        label={motherSolutionVolumeLabel}
+        name="motherSolutionVolume"
+        min="0.01"
+        handleChange={handleChange}
+      ></Input>
+      <Input
+        label={weightOfChlorineLabel}
+        name="weightOfChlorine"
+        min="0"
+        handleChange={handleChange}
+      ></Input>
+      <Input
+        label={desiredReservoirConcentrationLabel}
+        name="desiredReservoirConcentration"
+        min="0"
+        handleChange={handleChange}
+      ></Input>
 
-      <div className="button-wrapper">
-        <button type="reset" className="clear-button" onClick={clear}>
-          Clear
-        </button>
-        <button type="submit" className="submit-button">
-          Submit
-        </button>
-      </div>
+      <button type="reset" className="button" onClick={clear}>
+        {t('Clear')}
+      </button>
+      <button type="submit" className="primary button">
+        {t('Submit')}
+      </button>
     </form>
   );
 }
