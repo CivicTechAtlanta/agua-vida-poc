@@ -1,8 +1,8 @@
 import { useState } from 'react';
-
 import './Modal.scss';
+import { IMAGES } from './Images'
 
-const IMAGES = require('./Images');
+type ImageKey = 'CHLORINE_WEIGHT' // | 'NEXT_KEY_NAME' -  add more keys as they are created
 
 type imageData = {
     data: string,
@@ -14,7 +14,7 @@ type ModalProps = {
     show: boolean,
     closeModal: () => void,
     headerText: string,
-    imageKey: string,
+    imageKey: ImageKey,
 }
 
 export default function Modal(props: ModalProps) {
