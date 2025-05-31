@@ -7,7 +7,8 @@
     "build": "NODE_ENV=production && next build",
     "post-build": "./manifest-path-fixup.sh",
     "start": "NODE_ENV=production next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "rm -rf ./out"
   },
   "dependencies": {
     "@serwist/next": "^9.0.11",
