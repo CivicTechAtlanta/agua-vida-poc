@@ -16,8 +16,6 @@ export default function ChlorineWeightFormula() {
     const [errorMessage, setErrorMessage] = useState('');
 
     const [showModal, setShowModal] = useState(null as string | null);
-    console.log('showModal:', showModal);
-    console.log('showModal === info:', showModal === 'info');
 
     const [formData, setFormData] = useState({
         motherSolution: '',
@@ -29,11 +27,6 @@ export default function ChlorineWeightFormula() {
 
     //Calculate the weight of chlorine needed
     const chlorineWeight = .36 * ((Number(formData.motherSolution) * Number(formData.waterIngress) * Number(formData.desiredConcentration)) / (Number(formData.dripRate) * Number(formData.chlorinePercentage)))
-
-    function printChlorineFormula() {
-        console.log("The weight of chlorine needed is: " + chlorineWeight + " grams");
-    }
-    printChlorineFormula()  // The weight of chlorine needed is: 0.6 grams
 
     const handleClick = () => {
         if (
