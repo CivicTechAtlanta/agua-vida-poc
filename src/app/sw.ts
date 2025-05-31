@@ -20,16 +20,6 @@ const serwist = new Serwist({
   clientsClaim: true,
   navigationPreload: true,
   runtimeCaching: defaultCache,
-  fallbacks: {
-    entries: [
-      {
-        url: "/agua-vida-poc",
-        matcher({ request }) {
-          return request.destination === "document";
-        },
-      },
-    ],
-  },
 });
 
 serwist.addEventListeners();
