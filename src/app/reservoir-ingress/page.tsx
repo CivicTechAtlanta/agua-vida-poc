@@ -8,24 +8,6 @@ import "./styles/Main.css";
 import LanguageSelector from "../components/LanguageSelector/LanguageSelector";
 import Home from "../components/Home/Home";
 
-const containerSize = 20  // liters
-
-const tryOne = 20 // seconds
-const tryTwo = 25
-const tryThree = 22
-
-const sum = tryOne + tryTwo + tryThree
-
-const avg = sum / 3
-
-const ingress = containerSize / avg  // liters/second
-
-function printIngressFormula() {
-    console.log("The ingress formula is: " + ingress + " liters/second");
-}
-
-printIngressFormula()
-
 export default function ReservoirIngressFormula() {
     const { t } = useTranslation();
 
