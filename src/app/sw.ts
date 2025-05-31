@@ -20,6 +20,15 @@ const serwist = new Serwist({
   clientsClaim: true,
   navigationPreload: true,
   runtimeCaching: defaultCache,
+  precacheOptions: {
+    urlManipulation: ({url}) => {
+      if(url.pathname === '/agua-vida-poc') {
+        const alteredUrl = new URL(url)
+        alteredUrl.pathname = '/agua-vida-poc/'
+      return [alteredUrl]
+      } else return [url]
+    }
+  }
 });
 
 serwist.addEventListeners();
