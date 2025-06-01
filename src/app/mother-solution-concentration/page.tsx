@@ -9,25 +9,6 @@ import LanguageSelector from "../components/LanguageSelector/LanguageSelector";
 
 import "./styles/Main.css";
 
-
-const mother_solution_volume = 600; // liters
-const weight_of_chlorine = 100; // grams
-const desired_reservoir_concentration = 1; // miligrams/liter
-
-const concentration_mother_solution =
-  (weight_of_chlorine * 10 * desired_reservoir_concentration) /
-  mother_solution_volume; // miligrams/liter
-
-function printMotherSolutionConcentration() {
-  console.log(
-    "The concentration of the mother solution is: " +
-    concentration_mother_solution +
-    " milligrams/liter"
-  );
-}
-
-printMotherSolutionConcentration();
-
 export default function MotherSolutionConcentrationFormula() {
   const { t } = useTranslation();
 
