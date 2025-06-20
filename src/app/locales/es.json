@@ -40,5 +40,10 @@
     "Container Size": "Tamaño del contenedor",
     "Try One": "Pruebe uno",
     "Try Two": "Pruebe dos",
-    "Try Three": "Pruebe tres"
+    "Try Three": "Pruebe tres",
+    "Mother Tank Maximum Weight": "Peso Máximo del Tanque Madre",
+    "kilograms": "kilogramos",
+    "Chlorine %": "% de Cloro",
+    "The maximum weight of the mother tank is": "El peso máximo del tanque madre es",
+    "Mother Tank Maximum Weight Formula": "Fórmula del peso máximo del tanque madre"
 }
