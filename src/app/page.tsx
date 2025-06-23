@@ -17,6 +17,7 @@ export default function Home() {
         <Link className='go-to-page' href="/mother-solution-concentration">{t('Mother Solution Concentration')}</Link>
         <Link className='go-to-page' href="/refill-time">{t('Refill Time')}</Link>
         <Link className='go-to-page' href="/reservoir-ingress">{t('Reservoir Ingress')}</Link>
+        <Link className='go-to-page' href="/mother-tank-maximum-weight">{t('Mother Tank Maximum Weight')}</Link>
         {/* <Link className='go-to-page' href="/lang-test">{t('Language Test')}</Link> */}
 
         <LanguageSelector></LanguageSelector>
