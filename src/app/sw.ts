@@ -22,4 +22,22 @@ const serwist = new Serwist({
   runtimeCaching: defaultCache,
 });
 
-serwist.addEventListeners();
+self.addEventListener("install", serwist.handleInstall);
+self.addEventListener("activate", serwist.handleActivate);
+self.addEventListener("message", serwist.handleCache);
+self.addEventListener("fetch", (ev) => {
+  try {
+    console.log('handling fetch in service worker', ev.request)
+    const responsePromise = serwist.handleRequest({ event: ev, request: ev.request })
+    if (responsePromise) {
+      ev.respondWith(responsePromise)
+    } else {
+      throw new Error('serwist failed to handle request' + ev.request)
+    }
+  } catch (err) {
+    console.log('request failed. trying precache for' + ev.request + " " + (err as Error)?.message)
+    const cachedResponse = (serwist.matchPrecache(ev.request) ?? Response.error()) as Promise<Response>
+    ev.respondWith(cachedResponse)
+  }
+});
+
