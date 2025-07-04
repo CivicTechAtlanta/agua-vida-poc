@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" style={{overscrollBehavior: 'none'}}>
       <head />
       <body className={`${flamenco.variable} ${advent.variable} ${geistSans.variable} ${geistMono.variable}`}>
         {children}
