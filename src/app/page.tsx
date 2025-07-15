@@ -15,7 +15,6 @@ export default function Home() {
       <main className='main'>
         <Link className='go-to-page' href="/chlorine-weight">{t('Chlorine Weight Formula')}</Link>
         <Link className='go-to-page' href="/mother-solution-concentration">{t('Mother Solution Concentration')}</Link>
-        <Link className='go-to-page' href="/refill-time">{t('Refill Time')}</Link>
         <Link className='go-to-page' href="/drip-rate">{t('Drip Rate')}</Link>
         <Link className='go-to-page' href="/reservoir-ingress">{t('Reservoir Ingress')}</Link>
         <Link className='go-to-page' href="/mother-tank-maximum-weight">{t('Mother Tank Maximum Weight')}</Link>
