@@ -15,6 +15,8 @@ export default function DripRateFormula() {
     const [refillTime, setRefillTime] = useState<number>(0)
 
     useEffect(() => {
+        // The mother solution is in liters. The refill time is in days. We want the drip rate in milliliters per minute.
+        // We convert liters to milliliters and days to minutes and perform the division.
         const calculatedDripRate = refillTime > 0 ? (motherSolutionVolume * 1000) / (refillTime * 1440) : 0
         setDripRate(calculatedDripRate)
     }, [motherSolutionVolume, refillTime])
