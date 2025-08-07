@@ -1,10 +1,14 @@
 {
+    "Step" : "Step",
+    "Calculator Flow" : "Calculator Flow",
+    "Start Clorination Flow" : "Start Clorination Flow",
+    "Formula Titles": "Formulas",
     "title": "Language Test",
     "description": "This will test languages.",
     "button": "Switch Language",
     "Home": "Home",
     "Chlorine Weight Formula": "Chlorine Weight Formula",
-    "Drip Rate Formula": "Drip Rate Formula",
+    "Recharge Time Formula": "Recharge Time Formula",
     "Mother Solution Concentration": "Mother Solution Concentration",
     "Refill Time": "Refill Time",
     "Reservoir Ingress": "Reservoir Ingress",
@@ -44,5 +48,37 @@
     "Container Size":"Container Size",
     "Try One":"Try One",
     "Try Two":"Try Two",
-    "Try Three":"Try Three"
+    "Try Three":"Try Three",
+    "RechargeText1": "The recharge time is the number of days the water is expected to remain properly chlorinated.",
+
+
+    "Chlorine Weight Formula Header 1" : "Finding Chlorine Weight",
+    "Chlorine Weight Formula Header 2" : "Necessary Steps",
+    "Chlorine Weight Formula Header 3" : "Use in the Field",
+
+    "chlorine weight text 1" : "Chlorine weight is determined by the inflow of water into the reservoir and the time period for which you chlorinate.",
+    "chlorine weight text 2" : "You must use the correct weight of chlorine to properly chlorinate.",
+    "chlorine weight text 3" : "To measure the flow of water into the reservoir, record the time it takes to fill a container of a known volume. The flow of water is equal to the volume of the container (in liters) divided by the time it takes to fill (in seconds).",
+
+    "mother solution concentration header 1" : "What is the Mother Solution?",
+    "mother solution concentration header 2" : "Mixing",
+
+    "mother solution concentration text 1" : "The mother solution is the chlorine mixture that drips into the water system and treats the water.",
+    "mother solution concentration text 2" : "You must mix the solution well enough that the chlorine is not sitting at the bottom of the mixing receptacle.",
+
+    "drip rate header 1" : "Finding Drip Rate",
+    "drip rate header 2" : "Examples",
+
+    "drip rate text 1" : "Refill time is the number of days the water is expected to remain properly chlorinated.",
+    "drip rate text 2" : "There are different methods to ensuring water is properly chlorinated, but try and keep the refill time and associated drip rates under 14 days, or two weeks.",
+
+    "flow rate header 1" : "Find the Reservoir Flow Rate",
+    "flow rate header 2" : "Containers",
+
+    "flow rate text 1" : "The reservoir inflow is the rate at which water enters the reservoir in liters per second. Regular measurement of this inflow is recommended, as different factors, such as weather or time of year, can impact the water inflow.",
+    "flow rate text 2" : "As long as you have the size of the container and the time it takes to fill, you can use any container to measure the flow rate.",
+
+    "mother solution max weight header 1" : "The Max Weight of the Mother Tank",
+
+    "mother solution max weight text 1" : "There is a recommended maximum weight of the mother tank, which is 50 kilograms. This is to ensure that the tank is manageable and the water is not strongly chlorinated."
 }
