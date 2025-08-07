@@ -5,21 +5,26 @@ import { useTranslation } from "react-i18next";
 
 import Input from "./Input";
 
+import {
+  CalculatorFlowSharedStateData
+} from "../../calculator-flow/components/Interfaces";
+
 type FormProps = {
-  onCalculate: (calculatedValue: number) => void;
+  onCalculate: (calculatedValue: object) => void;
+  sharedState: CalculatorFlowSharedStateData;
 };
 
 export const MOTHER_TANK_MAX_CHLORINATION_CONCENTRATION = 5000;
 
-export default function Form({ onCalculate }: FormProps) {
+export default function Form({ onCalculate, sharedState }: FormProps) {
   const { t } = useTranslation();
 
   const [formData, setFormData] = useState<{
     motherSolutionVolume: number;
     chlorinePercentage: number;
   }>({
-    motherSolutionVolume: 0,
-    chlorinePercentage: 0
+    motherSolutionVolume: sharedState.msVolume || 0,
+    chlorinePercentage: sharedState.chlorinePercentage || 0
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +36,10 @@ export default function Form({ onCalculate }: FormProps) {
   };
 
   const clear = () => {
-    onCalculate(0);
+    onCalculate({
+      msMaximumWeight: 0,
+      chlorinePercentage: 0
+    });
     setFormData({
       motherSolutionVolume: 0,
       chlorinePercentage: 0,
@@ -54,7 +62,11 @@ export default function Form({ onCalculate }: FormProps) {
       motherTankMaximumWeightSolution = 0;
     }
 
-    onCalculate(motherTankMaximumWeightSolution);
+    onCalculate({
+      msMaximumWeight : motherTankMaximumWeightSolution,
+      chlorinePercentage: chlorinePercentage,
+      msVolume : motherSolutionVolume
+    });
   };
 
   const motherSolutionVolumeLabel = `${t('Mother Solution Volume')} (${t('L')})`;
@@ -67,13 +79,15 @@ export default function Form({ onCalculate }: FormProps) {
         name="motherSolutionVolume"
         min="0.01"
         handleChange={handleChange}
-      ></Input>
+        defaultValue={formData.motherSolutionVolume.toString()}
+      />
       <Input
         label={chlorinationPercentageLabel}
         name="chlorinePercentage"
         min="0"
+        defaultValue={formData.chlorinePercentage.toString()}
         handleChange={handleChange}
-      ></Input>
+      />
 
       <button type="reset" className="button" onClick={clear}>
         {t('Clear')}

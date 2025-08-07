@@ -8,9 +8,15 @@ import "../styles/Form.css";
 
 type FormProps = {
   onCalculate: (calculatedValue: number) => void;
+  sharedState: {
+    msVolume?: number;
+    chlorineWeight?: number;
+    msConcentration?: number;
+    desiredConcentration?: number;
+  };
 };
 
-export default function Form({ onCalculate }: FormProps) {
+export default function Form({ onCalculate, sharedState }: FormProps) {
   const { t } = useTranslation();
 
   const [formData, setFormData] = useState<{
@@ -18,9 +24,9 @@ export default function Form({ onCalculate }: FormProps) {
     weightOfChlorine: number;
     desiredReservoirConcentration: number;
   }>({
-    motherSolutionVolume: 0,
-    weightOfChlorine: 0,
-    desiredReservoirConcentration: 0,
+    motherSolutionVolume: sharedState.msVolume || 0,
+    weightOfChlorine: sharedState.chlorineWeight || 0,
+    desiredReservoirConcentration: sharedState.desiredConcentration || 0,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,20 +77,22 @@ export default function Form({ onCalculate }: FormProps) {
         name="motherSolutionVolume"
         min="0.01"
         handleChange={handleChange}
-      ></Input>
+        defaultValue={formData.motherSolutionVolume.toString()}
+      />
       <Input
         label={weightOfChlorineLabel}
         name="weightOfChlorine"
         min="0"
         handleChange={handleChange}
-      ></Input>
+        defaultValue={formData.weightOfChlorine.toString()}
+      />
       <Input
         label={desiredReservoirConcentrationLabel}
         name="desiredReservoirConcentration"
         min="0"
         handleChange={handleChange}
-      ></Input>
-
+        defaultValue={formData.desiredReservoirConcentration.toString()}
+      />
       <button type="reset" className="button" onClick={clear}>
         {t('Clear')}
       </button>
