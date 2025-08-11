@@ -53,11 +53,14 @@ export default function Form({ onCalculate, sharedState }: FormProps) {
       chlorinePercentage
     } = formData;
 
+    // Interpret chlorine percentage as a whole number (e.g., 70 => 0.70)
+    const chlorinePct = (chlorinePercentage || 0) / 100;
+
     let motherTankMaximumWeightSolution;
-    if (chlorinePercentage != 0) {
+    if (chlorinePct != 0) {
       motherTankMaximumWeightSolution =
         (motherSolutionVolume * MOTHER_TANK_MAX_CHLORINATION_CONCENTRATION) /
-        (10 * chlorinePercentage);
+        (10 * chlorinePct);
     } else {
       motherTankMaximumWeightSolution = 0;
     }
@@ -85,7 +88,7 @@ export default function Form({ onCalculate, sharedState }: FormProps) {
         label={chlorinationPercentageLabel}
         name="chlorinePercentage"
         min="0"
-        defaultValue={formData.chlorinePercentage.toString()}
+  defaultValue={formData.chlorinePercentage.toString()}
         handleChange={handleChange}
       />
 

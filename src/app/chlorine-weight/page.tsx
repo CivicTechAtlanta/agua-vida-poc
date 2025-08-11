@@ -26,8 +26,9 @@ export default function ChlorineWeightFormula() {
         chlorinePercentage: '',
     });
 
-    //Calculate the weight of chlorine needed
-    const chlorineWeight = .36 * ((Number(formData.motherSolution) * Number(formData.waterIngress) * Number(formData.desiredConcentration)) / (Number(formData.dripRate) * Number(formData.chlorinePercentage)))
+    // Calculate with chlorine percentage given as a whole number (e.g., 70 => 0.70)
+    const chlorinePct = (Number(formData.chlorinePercentage) || 0) / 100;
+    const chlorineWeight = .36 * ((Number(formData.motherSolution) * Number(formData.waterIngress) * Number(formData.desiredConcentration)) / (Number(formData.dripRate) * chlorinePct))
 
     const handleClick = () => {
         if (
@@ -108,7 +109,7 @@ export default function ChlorineWeightFormula() {
                     label={`${t('Chlorine Percentage')}`}
                     name='chlorinePercentage'
                     value={formData.chlorinePercentage}
-                    placeholder='0.7'
+                    placeholder='70'
                     handleChange={handleChange}
                 />
 
