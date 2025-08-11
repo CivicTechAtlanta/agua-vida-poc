@@ -8,6 +8,8 @@ import Form from "../../mother-solution-concentration/components/Form";
 
 import "../../mother-solution-concentration/styles/Main.css";
 
+import modalData from "../../modals/mother-solution-concentration-modal-data";
+
 export default function MotherSolutionConcentrationFormula({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: object }) {
   const { t } = useTranslation();
 
@@ -40,8 +42,8 @@ export default function MotherSolutionConcentrationFormula({ onCalculate, shared
       <Modal
           show={showModal === 'info'}
           closeModal={() => setShowModal(null)}
-          headerText='How to Determine Chlorine Weight Formula'
-          imageKey='CHLORINE_WEIGHT'/>
+          modalPageData={modalData}
+      />
     </div>
     
   );

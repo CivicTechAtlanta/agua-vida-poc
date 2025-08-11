@@ -10,6 +10,8 @@ import {
   CalculatorFlowSharedStateData
 } from "./Interfaces";
 
+import modalData from '@/app/modals/chlorine-weight-modal-data';
+
 export default function ChlorineWeightFormula({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: CalculatorFlowSharedStateData }) {
     const { t } = useTranslation();
 
@@ -17,8 +19,6 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
     const [errorMessage, setErrorMessage] = useState('');
 
     const [showModal, setShowModal] = useState(null as string | null);
-
-    console.log('ChlorineWeightFormula sharedState', sharedState);
 
     const [formData, setFormData] = useState({
         motherSolution: sharedState.msVolume || '',
@@ -134,8 +134,8 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
             <Modal
                 show={showModal === 'info'}
                 closeModal={() => setShowModal(null)}
-                headerText='How to Determine Chlorine Weight Formula'
-                imageKey='CHLORINE_WEIGHT'/>
+                modalPageData={modalData}
+            />
 
         </div>
     );

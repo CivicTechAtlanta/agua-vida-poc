@@ -5,16 +5,23 @@ import { useTranslation } from "react-i18next";
 import './page.scss';
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import LanguageSelector from "./components/LanguageSelector/LanguageSelector";
 
 export default function Home() {
   const { t } = useTranslation();
+  const router = useRouter();
 
   return (
     <div className='page'>
       <header className="headerHamburger">
         <div className="hamburger-menu" style={{ marginLeft: 'auto' }}>
-          <button className="hamburger-button" aria-label="menu">
+          <button
+            className="hamburger-button"
+            aria-label="menu"
+            type="button"
+            onClick={() => router.push('/configurations')}
+          >
         <span></span>
         <span></span>
         <span></span>

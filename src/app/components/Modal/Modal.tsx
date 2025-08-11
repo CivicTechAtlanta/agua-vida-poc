@@ -24,7 +24,7 @@ type imageData = {
 type ModalProps = {
     show: boolean,
     closeModal: () => void,
-    modalPageData: ModalPageData,
+    modalPageData: any,
 }
 
 export default function Modal(props: ModalProps) {

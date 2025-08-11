@@ -7,6 +7,7 @@ import Modal from '../../components/Modal/Modal';
 import Form from "../../reservoir-ingress/components/Form";
 
 import "../../reservoir-ingress/styles/Main.css";
+import modalData from "@/app/modals/drip-rate-modal-data";
 
 export default function ReservoirIngressFormula({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: any }) {
     const { t } = useTranslation();
@@ -41,8 +42,8 @@ export default function ReservoirIngressFormula({ onCalculate, sharedState }: { 
             <Modal
                 show={showModal === 'info'}
                 closeModal={() => setShowModal(null)}
-                headerText='How to Determine Chlorine Weight Formula'
-                imageKey='CHLORINE_WEIGHT'/>
+                modalPageData={modalData}
+            />
         </div>
     );
 }

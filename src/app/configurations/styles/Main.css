@@ -1,0 +1,117 @@
+/* Base layout fills almost the full width and extends to the top */
+.config-page {
+  /* width: 100vw; */
+  height: 80vh;
+  overflow: hidden;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center children horizontally */
+  padding: 0; /* override global padding */
+}
+
+.config-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  justify-content: center; /* center Home button */
+  align-items: center;
+  padding: 8px 0;
+  background: transparent;
+}
+
+.swipe-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Hide overflowing slides */
+  touch-action: pan-y; /* allow vertical scroll, we handle horizontal */
+  margin: 0 auto; /* keep container centered */
+  padding: 0; /* override global padding */
+}
+
+.swipe-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 300ms ease;
+  will-change: transform;
+  padding: 0; /* override global padding */
+}
+
+.card {
+  flex: 0 0 100%; /* Each card takes full viewport width */
+  height: 100%;
+  display: flex;
+  align-items: stretch; /* vertical alignment managed by inner content */
+  justify-content: center;
+  padding: 0; /* override global padding */
+}
+
+.card-inner {
+  background: #000; /* black background */
+  color: #fff;      /* white text */
+  border: 1px solid #fff; /* white outline */
+  width: 100%; /* exactly the container width */
+  max-width: 100%;
+  height: calc(100% - 64px); /* account for header/pager on small screens */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto; /* center within slide */
+  align-items: flex-start; /* left-justify content */
+  text-align: left;  /* left-align headings and text */
+}
+
+/* Pager */
+.pager {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 0; /* override global padding */
+}
+
+.dot {
+  /* reset button defaults */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  /* circle sizing */
+  width: 10px;
+  height: 10px;
+  aspect-ratio: 1 / 1;
+  border-radius: 9999px;
+  display: inline-block;
+  background: #bbb;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: #288DCE;
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .card-inner {
+  width: 100%;
+  max-width: 100%;
+    height: calc(100% - 72px);
+  margin: 0 auto;
+  }
+  .config-header {
+    padding: 10px 0;
+  }
+}

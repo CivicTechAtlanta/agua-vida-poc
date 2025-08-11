@@ -11,6 +11,7 @@ import "../styles/Main.css";
 import {
   CalculatorFlowSharedStateData
 } from "./Interfaces";
+import modalData from "@/app/modals/flow-rate-modal-data";
 
 export default function MotherTankMaximumWeightFormula({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: CalculatorFlowSharedStateData }) {
   const { t } = useTranslation();
@@ -48,8 +49,8 @@ export default function MotherTankMaximumWeightFormula({ onCalculate, sharedStat
       <Modal
         show={showModal === 'info'}
         closeModal={() => setShowModal(null)}
-        headerText='How to Determine Maximum Mother Tank Weight'
-        imageKey='CHLORINE_WEIGHT'></Modal>
+        modalPageData={modalData}
+      />
     </div>
   );
 }
