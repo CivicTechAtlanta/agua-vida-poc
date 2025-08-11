@@ -12,6 +12,7 @@ import {
   CalculatorFlowSharedStateData
 } from "./Interfaces";
 import modalData from "@/app/modals/flow-rate-modal-data";
+import { formatSig2 } from "@/app/utils/format";
 
 export default function MotherTankMaximumWeightFormula({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: CalculatorFlowSharedStateData }) {
   const { t } = useTranslation();
@@ -42,7 +43,7 @@ export default function MotherTankMaximumWeightFormula({ onCalculate, sharedStat
       <div className="result-wrapper">
         <h2>{`${t('The maximum weight of the mother tank is')}:`}</h2>
         <p className="answer">
-          {`${Math.trunc(motherWeightMaximumWeightSolution)} ${t('grams')}`} {`(${(motherWeightMaximumWeightSolution / 1000).toFixed(1)} ${t('kilograms')})`}
+          {`${formatSig2(motherWeightMaximumWeightSolution)} ${t('grams')}`} {`(${formatSig2(motherWeightMaximumWeightSolution / 1000)} ${t('kilograms')})`}
         </p>
       </div>
 

@@ -8,6 +8,7 @@ import Home from '../components/Home/Home';
 import Modal from '../components/Modal/Modal';
 import LanguageSelector from "../components/LanguageSelector/LanguageSelector";
 import modalData from '../modals/chlorine-weight-modal-data';
+import { formatSig2 } from "../utils/format";
 
 
 export default function ChlorineWeightFormula() {
@@ -116,7 +117,7 @@ export default function ChlorineWeightFormula() {
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
                 {showText ? (
-                    <p>{`${t('The weight of chlorine needed is')}: ${chlorineWeight} ${t('grams')}`}</p>
+                    <p>{`${t('The weight of chlorine needed is')}: ${formatSig2(chlorineWeight)} ${t('grams')}`}</p>
                 ) : (
                     <button className="button primary" onClick={handleClick}>{t('Show Chlorine Weight')}</button>
                 )}

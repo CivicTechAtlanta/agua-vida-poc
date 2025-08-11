@@ -1,0 +1,29 @@
+/* Left-align the mother solution concentration form */
+.form {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form .input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.form .input-group p {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: left;
+}
+
+.form .input-group input {
+  width: 100%;
+  text-align: left;
+}

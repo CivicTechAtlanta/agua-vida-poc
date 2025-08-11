@@ -22,6 +22,8 @@ import Home from "./../components/Home/Home";
 import LanguageSelector from "../components/LanguageSelector/LanguageSelector";
 
 import "./styles/Main.css";
+import { toSig2Number } from "@/app/utils/format";
+import { useRouter } from "next/navigation";
 
 type CalculatorFlowStep = 1 | 2 | 3 | 4 | 5;
 
@@ -44,6 +46,7 @@ interface CalculatorFlowStageData {
 
 export default function CalculatorFlow() {
   const { t } = useTranslation();
+  const router = useRouter();
 
   const [calculatorFlowStageData, setCalculatorFlowStageData] = useState<CalculatorFlowStageData>({ 
     step: 1,
@@ -106,7 +109,7 @@ export default function CalculatorFlow() {
       }));
       setSharedState((prevState) => ({
           ...prevState,
-          reservoirIngress: calculatedValue
+          reservoirIngress: toSig2Number(calculatedValue)
       }));
   };
 
@@ -121,8 +124,8 @@ export default function CalculatorFlow() {
       }));
       setSharedState((prevState) => ({
           ...prevState,
-          chlorineWeight: calculatedValue.chlorineWeight,
-          desiredConcentration: calculatedValue.desiredConcentration
+          chlorineWeight: toSig2Number(calculatedValue.chlorineWeight),
+          desiredConcentration: toSig2Number(calculatedValue.desiredConcentration)
       }));
       // Update shared state with the calculated value
   };
@@ -137,7 +140,7 @@ export default function CalculatorFlow() {
       }));
       setSharedState((prevState) => ({
           ...prevState,
-          msConcentration: calculatedValue
+          msConcentration: toSig2Number(calculatedValue)
       }));
       // Update shared state with the calculated value
   };
@@ -152,8 +155,8 @@ export default function CalculatorFlow() {
       }));
       setSharedState((prevState) => ({
           ...prevState,
-          msVolume: calculatedValue.msVolume,
-          chlorinePercentage: calculatedValue.chlorinePercentage
+          msVolume: toSig2Number(calculatedValue.msVolume),
+          chlorinePercentage: toSig2Number(calculatedValue.chlorinePercentage)
       }));
   };
 
@@ -166,10 +169,9 @@ export default function CalculatorFlow() {
       }));
       setSharedState((prevState) => ({
           ...prevState,
-          msVolume: data.msVolume,
-          desiredDripRate: data.dripRate
+          msVolume: toSig2Number(data.msVolume),
+          desiredDripRate: toSig2Number(data.dripRate)
       }));
-    console.log("Drip Rate Data Updated sharedState:", sharedState);
   };
 
   const getHandlerForStep = (step: CalculatorFlowStep) => {
@@ -209,11 +211,11 @@ export default function CalculatorFlow() {
       };
       if (typeof window !== 'undefined') {
         window.localStorage.setItem(key, JSON.stringify(entry));
-        window.alert(t('Saved'));
       }
       setShowSavePopup(false);
       setConfigName("");
       setConfigDescription("");
+      router.push("/configurations");
     } catch (err) {
       console.error('Failed to save shared state', err);
     }

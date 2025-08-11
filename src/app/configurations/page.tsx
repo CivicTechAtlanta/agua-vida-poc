@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Home from "../components/Home/Home";
 
 import "./styles/Main.css";
+import { formatSig2 } from "../utils/format";
 
 interface ConfigurationsPageProps {
   chlorinationConfigName: string | null;
@@ -70,17 +71,8 @@ const fromDraft = (d: DraftConfig): ConfigurationsPageProps => ({
   desiredConcentration: parseNum(d.desiredConcentration),
 });
 
-function formatNum(val: any) {
-  if (val === null || val === undefined || val === "") return "-";
-  const num = Number(val);
-  if (!isFinite(num)) return val;
-  // Use toPrecision for significant digits, but toFixed for whole numbers
-  if (Math.abs(num) >= 1) {
-    return Number(num.toPrecision(2)).toString();
-  } else {
-    return Number(num.toPrecision(2)).toString();
-  }
-}
+// Use shared 2-sig-fig formatter everywhere for consistency
+const formatNum = formatSig2;
 
 export default function ConfigurationsPage() {
   const [configurations, setConfigurations] = useState<StoredConfig[]>([]);
@@ -101,10 +93,8 @@ export default function ConfigurationsPage() {
       if (key && key.startsWith('config.') && key.split('.').length === 4) {
         try {
           const value = window.localStorage.getItem(key);
-          console.log("value", value)
           if (value) {
             const parsed = JSON.parse(value);
-            console.log("parsed", parsed)
             // Only add if it has a name or description or time (basic sanity check)
             if (
               parsed &&

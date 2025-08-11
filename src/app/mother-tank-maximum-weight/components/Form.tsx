@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Input from "./Input";
+import "../styles/Form.css";
 
 import {
   CalculatorFlowSharedStateData

@@ -9,6 +9,7 @@ import Form from "../../mother-solution-concentration/components/Form";
 import "../../mother-solution-concentration/styles/Main.css";
 
 import modalData from "../../modals/mother-solution-concentration-modal-data";
+import { formatSig2 } from "@/app/utils/format";
 
 export default function SaveConfigurationPage({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: object }) {
   const { t } = useTranslation();
@@ -36,7 +37,7 @@ export default function SaveConfigurationPage({ onCalculate, sharedState }: { on
         <h2>{`${t('The concentration of the mother solution is')}:`}</h2>
 
         <p className="answer">
-          {`${concentratedMotherSolution.toFixed(2)} ${t('mg')}/${t('L')}`}
+          {`${formatSig2(concentratedMotherSolution)} ${t('mg')}/${t('L')}`}
         </p>
       </div>
       <Modal

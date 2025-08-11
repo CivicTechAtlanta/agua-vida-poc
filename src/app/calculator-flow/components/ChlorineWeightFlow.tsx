@@ -11,6 +11,7 @@ import {
 } from "./Interfaces";
 
 import modalData from '@/app/modals/chlorine-weight-modal-data';
+import { formatSig2 } from "@/app/utils/format";
 
 export default function ChlorineWeightFormula({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: CalculatorFlowSharedStateData }) {
     const { t } = useTranslation();
@@ -126,7 +127,7 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
                 <button className="button" onClick={handleClear}>{t('Clear')}</button>
                 
                 {showText ? (
-                    <p>{`${t('The weight of chlorine needed is')}: ${chlorineWeight} ${t('grams')}`}</p>
+                    <p>{`${t('The weight of chlorine needed is')}: ${formatSig2(chlorineWeight)} ${t('grams')}`}</p>
                 ) : (
                     <button className="button primary" onClick={handleClick}>{t('Submit')}</button>
                 )}
