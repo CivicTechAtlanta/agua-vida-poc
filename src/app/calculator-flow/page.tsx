@@ -75,8 +75,15 @@ export default function CalculatorFlow() {
     chlorineWeight: null,
     desiredDripRate: null,
     msConcentration: null,
-    reservoirIngress: null
+    reservoirIngress: null,
+    desiredConcentration: null,
+    refillTime : null
   });
+
+  // Popup state for config name/description
+  const [showSavePopup, setShowSavePopup] = useState(false);
+  const [configName, setConfigName] = useState("");
+  const [configDescription, setConfigDescription] = useState("");
 
   const stepComponents: StepComponentMap = {
     1: DripRateFormula,
@@ -101,8 +108,6 @@ export default function CalculatorFlow() {
           ...prevState,
           reservoirIngress: calculatedValue
       }));
-      // Update shared state with the calculated value
-      console.log("Ingress Data Updated sharedState:", sharedState);
   };
 
   const handleCalculateChlorineWeight = (calculatedValue: any) => {
@@ -182,6 +187,38 @@ export default function CalculatorFlow() {
     }
   };
 
+  function uuidv4() {
+    // https://stackoverflow.com/a/2117523/65387
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
+  const saveSharedState = () => {
+    try {
+      const now = new Date();
+      const datetime = now.toISOString();
+      const uuid = uuidv4();
+      const key = `config.${datetime}.${uuid}`;
+      const entry = {
+        chlorinationConfigName: configName || null,
+        chlorinationConfigDescription: configDescription || null,
+        chlorinationConfigTimeCreated: datetime,
+        ...sharedState,
+      };
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(key, JSON.stringify(entry));
+        window.alert(t('Saved'));
+      }
+      setShowSavePopup(false);
+      setConfigName("");
+      setConfigDescription("");
+    } catch (err) {
+      console.error('Failed to save shared state', err);
+    }
+  };
+
   return (
     <div className="center">
       <Home/>
@@ -198,17 +235,76 @@ export default function CalculatorFlow() {
         >
           {t('Back')}
         </button>
-        <button 
-          onClick={() => setCalculatorFlowStageData(prev => ({
-            ...prev, 
-            step: prev.step < 5 ? (prev.step + 1) as CalculatorFlowStep : prev.step
-          }))}
-          disabled={calculatorFlowStageData.step === 5}
-          className="nav-button next-button"
-        >
-          {t('Continue')}
-        </button>
+        {calculatorFlowStageData.step < 5 ? (
+          <button 
+            onClick={() => setCalculatorFlowStageData(prev => ({
+              ...prev, 
+              step: prev.step < 5 ? (prev.step + 1) as CalculatorFlowStep : prev.step
+            }))}
+            className="nav-button next-button"
+          >
+            {t('Continue')}
+          </button>
+        ) : (
+          <button 
+            onClick={() => setShowSavePopup(true)}
+            className="nav-button next-button"
+          >
+            {t('Save')}
+          </button>
+        )}
       </div>
+      {showSavePopup && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.4)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1000
+        }}>
+          <div style={{
+            background: '#fff',
+            color: '#222',
+            borderRadius: 8,
+            padding: 32,
+            minWidth: 320,
+            boxShadow: '0 2px 16px rgba(0,0,0,0.2)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 16
+          }}>
+            <h2 style={{margin:0}}>{t('Save Configuration')}</h2>
+            <label style={{display:'flex',flexDirection:'column',gap:4}}>
+              <span>{t('Configuration Name')}</span>
+              <input
+                value={configName}
+                onChange={e => setConfigName(e.target.value)}
+                style={{padding:8,borderRadius:4,border:'1px solid #ccc'}}
+                placeholder={t('Enter a name')}
+                autoFocus
+              />
+            </label>
+            <label style={{display:'flex',flexDirection:'column',gap:4}}>
+              <span>{t('Description')}</span>
+              <textarea
+                value={configDescription}
+                onChange={e => setConfigDescription(e.target.value)}
+                style={{padding:8,borderRadius:4,border:'1px solid #ccc',minHeight:60}}
+                placeholder={t('Enter a description')}
+              />
+            </label>
+            <div style={{display:'flex',gap:12,justifyContent:'flex-end'}}>
+              <button onClick={() => setShowSavePopup(false)} style={{padding:'8px 16px'}}>{t('Cancel')}</button>
+              <button onClick={saveSharedState} style={{padding:'8px 16px',background:'#288DCE',color:'#fff',border:'none',borderRadius:4}}>{t('Save')}</button>
+            </div>
+          </div>
+        </div>
+      )}
       <LanguageSelector/>
     </div>
   );

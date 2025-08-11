@@ -31,4 +31,6 @@ export interface CalculatorFlowSharedStateData {
     desiredDripRate: number | null,
     msConcentration: number | null
     desiredConcentration: number | null
+    refillTime : number | null,
+    
 }

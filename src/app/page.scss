@@ -16,6 +16,14 @@
   font-family: var(--font-geist-sans);
 }
 
+nextjs-portal {
+  display: none;
+}
+
+next-route-announcer {
+  display: none;
+}
+
 .headerHamburger {
   display: flex;
   justify-content: center;

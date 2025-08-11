@@ -1,9 +1,9 @@
 .center {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Start at top so content doesn't get centered off-screen */
   align-items: center;
-  height: 100vh; /* Adjust as needed */
+  min-height: 100vh; /* Allow scrolling if content is taller than viewport */
   text-align: center;
 }
 
@@ -22,4 +22,21 @@ p{
 *{
   padding: 10px;
   box-sizing: border-box;
+}
+
+.navigation-buttons {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+  background: var(--background);
+  z-index: 1;
+}
+
+.nav-button {
+  padding: 8px 14px;
 }

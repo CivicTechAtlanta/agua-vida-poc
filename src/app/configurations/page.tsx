@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Home from "../components/Home/Home";
 
@@ -17,46 +17,114 @@ interface ConfigurationsPageProps {
   desiredDripRate: number | null;
   msConcentration: number | null;
   desiredConcentration: number | null;
+  refillTime?: number | null;
 }
 
-const PlaceholderConfigurations: ConfigurationsPageProps[] = [
-  {
-    chlorinationConfigName: "Default Config",
-    chlorinationConfigDescription: "This is a default configuration.",
-    chlorinationConfigTimeCreated: new Date().toISOString(),
-    msVolume: 100,
-    chlorinePercentage: 2,
-    reservoirIngress: 50,
-    chlorineWeight: 5,
-    desiredDripRate: 10,
-    msConcentration: 1,
-    desiredConcentration: 0.5,
-  },
-  {
-    chlorinationConfigName: "Custom Config",
-    chlorinationConfigDescription: "This is a custom configuration.",
-    chlorinationConfigTimeCreated: new Date().toISOString(),
-    msVolume: 150,
-    chlorinePercentage: 3,
-    reservoirIngress: 60,
-    chlorineWeight: 7,
-    desiredDripRate: 12,
-    msConcentration: 1.2,
-    desiredConcentration: 0.6,
-  },
-];
+type StoredConfig = {
+  key: string;
+  cfg: ConfigurationsPageProps;
+};
+
+type DraftConfig = {
+  chlorinationConfigName: string;
+  chlorinationConfigDescription: string;
+  chlorinationConfigTimeCreated: string;
+  msVolume: string;
+  chlorinePercentage: string;
+  reservoirIngress: string;
+  chlorineWeight: string;
+  desiredDripRate: string;
+  msConcentration: string;
+  desiredConcentration: string;
+};
+
+const toDraft = (cfg: ConfigurationsPageProps): DraftConfig => ({
+  chlorinationConfigName: cfg.chlorinationConfigName ?? "",
+  chlorinationConfigDescription: cfg.chlorinationConfigDescription ?? "",
+  chlorinationConfigTimeCreated: cfg.chlorinationConfigTimeCreated ?? new Date().toISOString(),
+  msVolume: cfg.msVolume?.toString() ?? "",
+  chlorinePercentage: cfg.chlorinePercentage?.toString() ?? "",
+  reservoirIngress: cfg.reservoirIngress?.toString() ?? "",
+  chlorineWeight: cfg.chlorineWeight?.toString() ?? "",
+  desiredDripRate: cfg.desiredDripRate?.toString() ?? "",
+  msConcentration: cfg.msConcentration?.toString() ?? "",
+  desiredConcentration: cfg.desiredConcentration?.toString() ?? "",
+});
+
+const parseNum = (s: string): number | null => {
+  if (s.trim() === "") return null;
+  const n = Number(s);
+  return Number.isFinite(n) ? n : null;
+};
+
+const fromDraft = (d: DraftConfig): ConfigurationsPageProps => ({
+  chlorinationConfigName: d.chlorinationConfigName || null,
+  chlorinationConfigDescription: d.chlorinationConfigDescription || null,
+  chlorinationConfigTimeCreated: d.chlorinationConfigTimeCreated || null,
+  msVolume: parseNum(d.msVolume),
+  chlorinePercentage: parseNum(d.chlorinePercentage),
+  reservoirIngress: parseNum(d.reservoirIngress),
+  chlorineWeight: parseNum(d.chlorineWeight),
+  desiredDripRate: parseNum(d.desiredDripRate),
+  msConcentration: parseNum(d.msConcentration),
+  desiredConcentration: parseNum(d.desiredConcentration),
+});
+
+function formatNum(val: any) {
+  if (val === null || val === undefined || val === "") return "-";
+  const num = Number(val);
+  if (!isFinite(num)) return val;
+  // Use toPrecision for significant digits, but toFixed for whole numbers
+  if (Math.abs(num) >= 1) {
+    return Number(num.toPrecision(2)).toString();
+  } else {
+    return Number(num.toPrecision(2)).toString();
+  }
+}
 
 export default function ConfigurationsPage() {
-  const [configurations] = useState<ConfigurationsPageProps[]>(
-    PlaceholderConfigurations
-  );
+  const [configurations, setConfigurations] = useState<StoredConfig[]>([]);
   const [index, setIndex] = useState(0);
   const [dragX, setDragX] = useState(0);
   const startX = useRef<number | null>(null);
   const dragging = useRef(false);
   const total = configurations.length;
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [draft, setDraft] = useState<DraftConfig | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+  const configs: StoredConfig[] = [];
+    for (let i = 0; i < window.localStorage.length; i++) {
+      const key = window.localStorage.key(i);
+      if (!key) continue;
+      if (key && key.startsWith('config.') && key.split('.').length === 4) {
+        try {
+          const value = window.localStorage.getItem(key);
+          console.log("value", value)
+          if (value) {
+            const parsed = JSON.parse(value);
+            console.log("parsed", parsed)
+            // Only add if it has a name or description or time (basic sanity check)
+            if (
+              parsed &&
+              (parsed.chlorinationConfigName || parsed.chlorinationConfigDescription || parsed.chlorinationConfigTimeCreated)
+            ) {
+        configs.push({ key, cfg: parsed });
+            }
+          }
+        } catch (e) {
+          // skip invalid JSON
+        }
+      }
+    }
+    // Sort by time created, newest first
+  configs.sort((a, b) => ((b.cfg.chlorinationConfigTimeCreated || '') as string).localeCompare((a.cfg.chlorinationConfigTimeCreated || '') as string));
+    setConfigurations(configs);
+  }, []);
 
   const onPointerDown = (e: React.PointerEvent) => {
+    if (editingIndex !== null) return;
     dragging.current = true;
     startX.current = e.clientX;
     setDragX(0);
@@ -64,6 +132,7 @@ export default function ConfigurationsPage() {
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
+    if (editingIndex !== null) return;
     if (!dragging.current || startX.current === null) return;
     const dx = e.clientX - startX.current;
     const clamped = Math.max(Math.min(dx, 120), -120);
@@ -71,6 +140,7 @@ export default function ConfigurationsPage() {
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
+    if (editingIndex !== null) return;
     if (!dragging.current) return;
     (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
     dragging.current = false;
@@ -83,6 +153,45 @@ export default function ConfigurationsPage() {
     }
     setDragX(0);
     startX.current = null;
+  };
+
+  const beginEdit = (i: number) => {
+    setEditingIndex(i);
+    setDraft(toDraft(configurations[i].cfg));
+  };
+
+  const cancelEdit = () => {
+    setEditingIndex(null);
+    setDraft(null);
+  };
+
+  const saveEdit = () => {
+    if (editingIndex === null || !draft) return;
+    const updated = fromDraft(draft);
+    setConfigurations((prev) => prev.map((c, i) => (i === editingIndex ? { ...c, cfg: updated } : c)));
+    setEditingIndex(null);
+    setDraft(null);
+  };
+
+  const deleteConfig = (i: number) => {
+    if (typeof window === 'undefined') return;
+    const item = configurations[i];
+    if (!item) return;
+    const confirmed = window.confirm('Delete this configuration? This cannot be undone.');
+    if (!confirmed) return;
+    try {
+      window.localStorage.removeItem(item.key);
+    } catch (e) {
+      console.error('Failed to remove item from localStorage', e);
+    }
+    setConfigurations(prev => {
+      const next = prev.filter((_, idx) => idx !== i);
+      // Adjust visible index if needed based on new length
+      setIndex(prevIndex => Math.min(prevIndex, Math.max(0, next.length - 1)));
+      return next;
+    });
+    setEditingIndex(null);
+    setDraft(null);
   };
 
   return (
@@ -113,50 +222,164 @@ export default function ConfigurationsPage() {
               </div>
             </section>
           ) : (
-            configurations.map((cfg, i) => (
-              <section className="card" key={cfg.chlorinationConfigName ?? i}>
+            configurations.map(({ key, cfg }, i) => (
+              <section className="card" key={key}>
                 <div className="card-inner">
-                  <h2>{cfg.chlorinationConfigName ?? `Configuration ${i + 1}`}</h2>
-                  {cfg.chlorinationConfigDescription && (
-                    <p style={{ marginTop: 4 }}>
-                      {cfg.chlorinationConfigDescription}
-                    </p>
-                  )}
-                  {cfg.chlorinationConfigTimeCreated && (
-                    <p style={{ marginTop: 8, opacity: 0.8 }}>
-                      Created: {new Date(cfg.chlorinationConfigTimeCreated).toLocaleString()}
-                    </p>
-                  )}
-                  <div
-                    style={{
-                      marginTop: 12,
-                      display: "grid",
-                      gridTemplateColumns: "1fr 1fr",
-                      gap: 8,
-                    }}
-                  >
-                    <div>
-                      <strong>MS Volume:</strong> {cfg.msVolume ?? "-"}
-                    </div>
-                    <div>
-                      <strong>Chlorine %:</strong> {cfg.chlorinePercentage ?? "-"}
-                    </div>
-                    <div>
-                      <strong>Reservoir Ingress:</strong> {cfg.reservoirIngress ?? "-"}
-                    </div>
-                    <div>
-                      <strong>Chlorine Weight:</strong> {cfg.chlorineWeight ?? "-"}
-                    </div>
-                    <div>
-                      <strong>Desired Drip Rate:</strong> {cfg.desiredDripRate ?? "-"}
-                    </div>
-                    <div>
-                      <strong>MS Concentration:</strong> {cfg.msConcentration ?? "-"}
-                    </div>
-                    <div>
-                      <strong>Desired Concentration:</strong> {cfg.desiredConcentration ?? "-"}
-                    </div>
+                  <div style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
+                    <h2 style={{ flex: 1 }}>
+                      {cfg.chlorinationConfigName ?? `Configuration ${i + 1}`}
+                    </h2>
+                    {editingIndex === i ? (
+                      <></>
+                    ) : (
+                      <button onClick={() => beginEdit(i)} className="blue-btn">Edit</button>
+                    )}
                   </div>
+
+          {editingIndex === i ? (
+          <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 12, width: '100%', flex: 1 }}>
+            <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <span>Name</span>
+                        <input
+                          value={draft?.chlorinationConfigName ?? ''}
+                          onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), chlorinationConfigName: e.target.value }))}
+              style={{ background: '#111', color: '#fff', border: '1px solid #fff', padding: 6, borderRadius: 4, width: '100%', textAlign: 'left' }}
+                        />
+                      </label>
+            <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <span>Description</span>
+                        <input
+                          value={draft?.chlorinationConfigDescription ?? ''}
+                          onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), chlorinationConfigDescription: e.target.value }))}
+              style={{ background: '#111', color: '#fff', border: '1px solid #fff', padding: 6, borderRadius: 4, width: '100%', textAlign: 'left' }}
+                        />
+                      </label>
+            <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <span>MS Volume</span>
+                        <input
+                          type="number"
+                          step="any"
+                          value={draft?.msVolume ?? ''}
+                          onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), msVolume: e.target.value }))}
+              style={{ background: '#111', color: '#fff', border: '1px solid #fff', padding: 6, borderRadius: 4, width: '100%', textAlign: 'left' }}
+                        />
+                      </label>
+            <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <span>Chlorine %</span>
+                        <input
+                          type="number"
+                          step="any"
+                          value={draft?.chlorinePercentage ?? ''}
+                          onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), chlorinePercentage: e.target.value }))}
+              style={{ background: '#111', color: '#fff', border: '1px solid #fff', padding: 6, borderRadius: 4, width: '100%', textAlign: 'left' }}
+                        />
+                      </label>
+            <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <span>Reservoir Ingress</span>
+                        <input
+                          type="number"
+                          step="any"
+                          value={draft?.reservoirIngress ?? ''}
+                          onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), reservoirIngress: e.target.value }))}
+              style={{ background: '#111', color: '#fff', border: '1px solid #fff', padding: 6, borderRadius: 4, width: '100%', textAlign: 'left' }}
+                        />
+                      </label>
+            <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <span>Chlorine Weight</span>
+                        <input
+                          type="number"
+                          step="any"
+                          value={draft?.chlorineWeight ?? ''}
+                          onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), chlorineWeight: e.target.value }))}
+              style={{ background: '#111', color: '#fff', border: '1px solid #fff', padding: 6, borderRadius: 4, width: '100%', textAlign: 'left' }}
+                        />
+                      </label>
+            <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <span>Desired Drip Rate</span>
+                        <input
+                          type="number"
+                          step="any"
+                          value={draft?.desiredDripRate ?? ''}
+                          onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), desiredDripRate: e.target.value }))}
+              style={{ background: '#111', color: '#fff', border: '1px solid #fff', padding: 6, borderRadius: 4, width: '100%', textAlign: 'left' }}
+                        />
+                      </label>
+            <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <span>MS Concentration</span>
+                        <input
+                          type="number"
+                          step="any"
+                          value={draft?.msConcentration ?? ''}
+                          onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), msConcentration: e.target.value }))}
+              style={{ background: '#111', color: '#fff', border: '1px solid #fff', padding: 6, borderRadius: 4, width: '100%', textAlign: 'left' }}
+                        />
+                      </label>
+            <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <span>Desired Concentration</span>
+                        <input
+                          type="number"
+                          step="any"
+                          value={draft?.desiredConcentration ?? ''}
+                          onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), desiredConcentration: e.target.value }))}
+              style={{ background: '#111', color: '#fff', border: '1px solid #fff', padding: 6, borderRadius: 4, width: '100%', textAlign: 'left' }}
+                        />
+                      </label>
+                      <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 10, width: '100%' }}>
+                        <button onClick={saveEdit} className="success-btn" style={{ width: '100%' }}>Save</button>
+                        <button onClick={() => deleteConfig(i)} className="danger-btn" style={{ width: '100%' }}>Delete</button>
+                        <button onClick={cancelEdit} className="blue-btn" style={{ width: '100%' }}>Cancel</button>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {cfg.chlorinationConfigDescription && (
+                        <p style={{ marginTop: 4 }}>
+                          {cfg.chlorinationConfigDescription}
+                        </p>
+                      )}
+                      {cfg.chlorinationConfigTimeCreated && (
+                        <p style={{ marginTop: 8, opacity: 0.8 }}>
+                          Created: {new Date(cfg.chlorinationConfigTimeCreated).toLocaleString()}
+                        </p>
+                      )}
+                      <div
+                        style={{
+                          marginTop: 12,
+                          display: "grid",
+                          gridTemplateColumns: "1fr 1fr",
+                          gap: 8,
+                          justifyItems: 'start',
+                          alignItems: 'start',
+                          textAlign: 'left'
+                        }}
+                      >
+                        <div>
+                          <strong>MS Volume:</strong> {formatNum(cfg.msVolume)}
+                        </div>
+                        <div>
+                          <strong>Chlorine %:</strong> {formatNum(cfg.chlorinePercentage)}
+                        </div>
+                        <div>
+                          <strong>Reservoir Ingress:</strong> {formatNum(cfg.reservoirIngress)}
+                        </div>
+                        <div>
+                          <strong>Chlorine Weight:</strong> {formatNum(cfg.chlorineWeight)}
+                        </div>
+                        <div>
+                          <strong>Desired Drip Rate:</strong> {formatNum(cfg.desiredDripRate)}
+                        </div>
+                        <div>
+                          <strong>MS Concentration:</strong> {formatNum(cfg.msConcentration)}
+                        </div>
+                        <div>
+                          <strong>Desired Concentration:</strong> {formatNum(cfg.desiredConcentration)}
+                        </div>
+                        <div>
+                          <strong>Refill Time:</strong> {formatNum(cfg.refillTime)}
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </section>
             ))
@@ -169,7 +392,7 @@ export default function ConfigurationsPage() {
             key={i}
             className={"dot" + (i === index ? " active" : "")}
             aria-label={`Go to slide ${i + 1}`}
-            onClick={() => setIndex(i)}
+            onClick={() => { if (editingIndex === null) setIndex(i); }}
           />
         ))}
       </div>
