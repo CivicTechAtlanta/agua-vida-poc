@@ -37,6 +37,7 @@ type DraftConfig = {
   desiredDripRate: string;
   msConcentration: string;
   desiredConcentration: string;
+  refillTime: string;
 };
 
 const toDraft = (cfg: ConfigurationsPageProps): DraftConfig => ({
@@ -50,6 +51,7 @@ const toDraft = (cfg: ConfigurationsPageProps): DraftConfig => ({
   desiredDripRate: cfg.desiredDripRate?.toString() ?? "",
   msConcentration: cfg.msConcentration?.toString() ?? "",
   desiredConcentration: cfg.desiredConcentration?.toString() ?? "",
+  refillTime: cfg.refillTime?.toString() ?? "",
 });
 
 const parseNum = (s: string): number | null => {
@@ -69,6 +71,7 @@ const fromDraft = (d: DraftConfig): ConfigurationsPageProps => ({
   desiredDripRate: parseNum(d.desiredDripRate),
   msConcentration: parseNum(d.msConcentration),
   desiredConcentration: parseNum(d.desiredConcentration),
+  refillTime: parseNum(d.refillTime),
 });
 
 // Use shared 2-sig-fig formatter everywhere for consistency
@@ -158,6 +161,15 @@ export default function ConfigurationsPage() {
   const saveEdit = () => {
     if (editingIndex === null || !draft) return;
     const updated = fromDraft(draft);
+    // Persist to localStorage under the original key
+    try {
+      if (typeof window !== 'undefined') {
+        const key = configurations[editingIndex].key;
+        window.localStorage.setItem(key, JSON.stringify(updated));
+      }
+    } catch (e) {
+      console.error('Failed to save configuration to localStorage', e);
+    }
     setConfigurations((prev) => prev.map((c, i) => (i === editingIndex ? { ...c, cfg: updated } : c)));
     setEditingIndex(null);
     setDraft(null);
@@ -311,6 +323,16 @@ export default function ConfigurationsPage() {
                           step="any"
                           value={draft?.desiredConcentration ?? ''}
                           onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), desiredConcentration: e.target.value }))}
+              style={{ background: '#111', color: '#fff', border: '1px solid #fff', padding: 6, borderRadius: 4, width: '100%', textAlign: 'left' }}
+                        />
+                      </label>
+            <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                        <span>Refill Time</span>
+                        <input
+                          type="number"
+                          step="any"
+                          value={draft?.refillTime ?? ''}
+                          onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), refillTime: e.target.value }))}
               style={{ background: '#111', color: '#fff', border: '1px solid #fff', padding: 6, borderRadius: 4, width: '100%', textAlign: 'left' }}
                         />
                       </label>

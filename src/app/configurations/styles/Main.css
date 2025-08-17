@@ -1,7 +1,7 @@
 /* Base layout fills almost the full width and extends to the top */
 .config-page {
   /* width: 100vw; */
-  height: 80vh;
+  height: 90vh;
   overflow: hidden;
   background: var(--background);
   display: flex;

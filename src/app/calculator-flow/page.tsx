@@ -99,7 +99,6 @@ export default function CalculatorFlow() {
   const CurrentComponent = stepComponents[calculatorFlowStageData.step];
 
   const handleCalculateIngress = (calculatedValue: number) => {
-    console.log("Ingress Data Updated:", calculatedValue);
       setCalculatorFlowStageData((prevData) => ({
           ...prevData,
           ingressData: {
@@ -170,7 +169,8 @@ export default function CalculatorFlow() {
       setSharedState((prevState) => ({
           ...prevState,
           msVolume: toSig2Number(data.msVolume),
-          desiredDripRate: toSig2Number(data.dripRate)
+          desiredDripRate: toSig2Number(data.dripRate),
+          refillTime: toSig2Number(data.refillTime)
       }));
   };
 
