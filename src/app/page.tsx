@@ -29,7 +29,7 @@ export default function Home() {
         </div>
       </header>
       <main className='main'>
-        <Link className='go-to-page' href="/calculator-flow">{t('Start Clorination Flow')}</Link>
+        <Link className='go-to-page' href="/calculator-flow">{t('Start Chlorination Flow')}</Link>
 
         <div className="full-width">
           <h1 className="titleSectionFormulas">{t('Formula Titles')}</h1>
