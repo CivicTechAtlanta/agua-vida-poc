@@ -1,21 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Modal from '../../components/Modal/Modal';
 
 import '../../drip-rate/DripRate.scss';
 
-import {
-  CalculatorFlowSharedStateData
-} from "./Interfaces";
+import { CalculatorFlowSharedStateData, DripRateData } from "./Interfaces";
 
 import modalData from "@/app/modals/drip-rate-modal-data";
 import { formatSig2 } from "@/app/utils/format";
 
 export default function DripRateFormula({ onCalculate, sharedState }: { 
-    onCalculate: (data: any) => void,
-    sharedState: CalculatorFlowSharedStateData
+        onCalculate: (data: DripRateData) => void,
+        sharedState: CalculatorFlowSharedStateData
 }) {
         const { t } = useTranslation();
 

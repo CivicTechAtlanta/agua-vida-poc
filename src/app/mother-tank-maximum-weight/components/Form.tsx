@@ -10,8 +10,9 @@ import {
   CalculatorFlowSharedStateData
 } from "../../calculator-flow/components/Interfaces";
 
+type MotherTankMaxCalc = { msMaximumWeight: number; chlorinePercentage: number; msVolume: number };
 type FormProps = {
-  onCalculate: (calculatedValue: object) => void;
+  onCalculate: (calculatedValue: MotherTankMaxCalc) => void;
   sharedState: CalculatorFlowSharedStateData;
 };
 
@@ -39,7 +40,8 @@ export default function Form({ onCalculate, sharedState }: FormProps) {
   const clear = () => {
     onCalculate({
       msMaximumWeight: 0,
-      chlorinePercentage: 0
+      chlorinePercentage: 0,
+      msVolume: 0,
     });
     setFormData({
       motherSolutionVolume: 0,

@@ -44,7 +44,7 @@ export default function Modal(props: ModalProps) {
         setSvgMarkup(null);
         const currentPage = pages[currentIndex];
         if (!currentPage?.imageKey) return;
-        const image = IMAGES[currentPage.imageKey as keyof typeof IMAGES] as any;
+    const image = IMAGES[currentPage.imageKey as keyof typeof IMAGES] as { data?: string | { src?: string } } | undefined;
         const data = image?.data;
         if (!data) return;
 
@@ -120,9 +120,9 @@ export default function Modal(props: ModalProps) {
         
         if (currentPage?.imageKey && currentPage.imageKey !== null) {
 
-            const image = IMAGES[currentPage.imageKey as keyof typeof IMAGES] as any;
+            const image = IMAGES[currentPage.imageKey as keyof typeof IMAGES] as { data?: string | { src?: string } } | undefined;
             if (!image || !image.data) return null;
-            const dataAny = image.data as any;
+            const dataAny = image.data as string | { src?: string };
             const srcOrString: string = typeof dataAny === 'string' ? dataAny : (dataAny?.src ?? '');
             const isInlineSvg = typeof srcOrString === 'string' && srcOrString.trim().startsWith('<svg');
 
@@ -141,20 +141,23 @@ export default function Modal(props: ModalProps) {
                             dangerouslySetInnerHTML={{ __html: srcOrString }}
                         />
                     ) : (
-                        <img 
-                            src={srcOrString} 
-                            alt={`${t(currentPage.imageKey)}`} 
-                            style={{
-                                maxWidth: '100%',
-                                maxHeight: '400px',
-                                width: 'auto',
-                                height: 'auto',
-                                objectFit: 'contain',
-                                display: 'block',
-                                marginLeft: '0',
-                                marginRight: 'auto'
-                            }}
-                        />
+                        <>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img 
+                                src={srcOrString} 
+                                alt={`${t(currentPage.imageKey)}`} 
+                                style={{
+                                    maxWidth: '100%',
+                                    maxHeight: '400px',
+                                    width: 'auto',
+                                    height: 'auto',
+                                    objectFit: 'contain',
+                                    display: 'block',
+                                    marginLeft: '0',
+                                    marginRight: 'auto'
+                                }}
+                            />
+                        </>
                     )}
                 </div>
             );

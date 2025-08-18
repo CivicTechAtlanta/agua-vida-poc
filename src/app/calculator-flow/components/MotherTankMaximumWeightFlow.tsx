@@ -14,17 +14,18 @@ import {
 import modalData from "@/app/modals/flow-rate-modal-data";
 import { formatSig2 } from "@/app/utils/format";
 
-export default function MotherTankMaximumWeightFormula({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: CalculatorFlowSharedStateData }) {
+type MotherTankMaxCalc = { msMaximumWeight: number; msVolume: number; chlorinePercentage: number };
+export default function MotherTankMaximumWeightFormula({ onCalculate, sharedState }: { onCalculate: (data: MotherTankMaxCalc) => void, sharedState: CalculatorFlowSharedStateData }) {
   const { t } = useTranslation();
 
   const [motherWeightMaximumWeightSolution, setMotherWeightMaximumWeightSolution] = useState(0);
   const [showModal, setShowModal] = useState(null as string | null);
 
 
-  const handleCalculate = (calculatedValue: any) => {
+  const handleCalculate = (calculatedValue: MotherTankMaxCalc) => {
     setMotherWeightMaximumWeightSolution(calculatedValue.msMaximumWeight);
     onCalculate({
-      motherWeightMaximumWeightSolution: calculatedValue.msMaximumWeight,
+  msMaximumWeight: calculatedValue.msMaximumWeight,
       msVolume: calculatedValue.msVolume,
       chlorinePercentage: calculatedValue.chlorinePercentage
     });

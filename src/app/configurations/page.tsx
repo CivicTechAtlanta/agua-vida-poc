@@ -106,7 +106,7 @@ export default function ConfigurationsPage() {
         configs.push({ key, cfg: parsed });
             }
           }
-        } catch (e) {
+  } catch {
           // skip invalid JSON
         }
       }
@@ -167,8 +167,8 @@ export default function ConfigurationsPage() {
         const key = configurations[editingIndex].key;
         window.localStorage.setItem(key, JSON.stringify(updated));
       }
-    } catch (e) {
-      console.error('Failed to save configuration to localStorage', e);
+    } catch {
+      console.error('Failed to save configuration to localStorage');
     }
     setConfigurations((prev) => prev.map((c, i) => (i === editingIndex ? { ...c, cfg: updated } : c)));
     setEditingIndex(null);
