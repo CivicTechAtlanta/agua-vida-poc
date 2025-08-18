@@ -61,9 +61,10 @@ export default function Form({ onCalculate, sharedState }: FormProps) {
 
     let motherTankMaximumWeightSolution;
     if (chlorinePct != 0) {
+      console.log("Calculating mother tank maximum weight solution with chlorine percentage:", chlorinePct);
       motherTankMaximumWeightSolution =
         (motherSolutionVolume * MOTHER_TANK_MAX_CHLORINATION_CONCENTRATION) /
-        (10 * chlorinePct);
+        (chlorinePct*1000);
     } else {
       motherTankMaximumWeightSolution = 0;
     }
