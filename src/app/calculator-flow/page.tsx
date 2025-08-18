@@ -210,7 +210,7 @@ export default function CalculatorFlow() {
         <ChlorineWeightFormula onCalculate={handleCalculateChlorineWeight} sharedState={sharedState} />
       )}
       {calculatorFlowStageData.step === 5 && (
-        <MotherSolutionConcentrationFormula onCalculate={handleCalculateMotherSolutionConcentration} sharedState={{}} />
+        <MotherSolutionConcentrationFormula onCalculate={handleCalculateMotherSolutionConcentration} sharedState={sharedState} />
       )}
       <div className="navigation-buttons">
         <button 

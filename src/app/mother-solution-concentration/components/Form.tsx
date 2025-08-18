@@ -9,14 +9,15 @@ import "../styles/Form.css";
 type FormProps = {
   onCalculate: (calculatedValue: number) => void;
   sharedState: {
-    msVolume?: number;
-    chlorineWeight?: number;
-    msConcentration?: number;
-    desiredConcentration?: number;
+    msVolume?: number | null;
+    chlorineWeight?: number | null;
+    msConcentration?: number | null;
+    desiredConcentration?: number | null;
   };
 };
 
 export default function Form({ onCalculate, sharedState }: FormProps) {
+
   const { t } = useTranslation();
 
   const [formData, setFormData] = useState<{
