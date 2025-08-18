@@ -13,7 +13,16 @@ import {
 import modalData from '@/app/modals/chlorine-weight-modal-data';
 import { formatSig2 } from "@/app/utils/format";
 
-export default function ChlorineWeightFormula({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: CalculatorFlowSharedStateData }) {
+type ChlorineWeightCalc = {
+    chlorineWeight: number;
+    msVolume: number | string;
+    waterIngress: number | string;
+    desiredConcentration: number;
+    dripRate: number | string;
+    chlorinePercentage: number | string;
+};
+
+export default function ChlorineWeightFormula({ onCalculate, sharedState }: { onCalculate: (data: ChlorineWeightCalc) => void, sharedState: CalculatorFlowSharedStateData }) {
     const { t } = useTranslation();
 
     const [showText, setShowText] = useState(false);
@@ -50,7 +59,7 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
                 chlorineWeight: chlorineWeight,
                 msVolume: formData.motherSolution,
                 waterIngress: formData.waterIngress,
-                desiredConcentration: formData.desiredConcentration,
+                desiredConcentration: Number(formData.desiredConcentration),
                 dripRate: formData.dripRate,
                 chlorinePercentage: formData.chlorinePercentage
             });

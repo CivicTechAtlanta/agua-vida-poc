@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import DripRateFormula from "./components/DripRateCalculatorFlow";
@@ -26,14 +26,6 @@ import { toSig2Number } from "@/app/utils/format";
 import { useRouter } from "next/navigation";
 
 type CalculatorFlowStep = 1 | 2 | 3 | 4 | 5;
-
-interface StepComponentMap {
-  1: typeof DripRateFormula;
-  2: typeof ReservoirIngressFormula;
-  3: typeof MotherTankMaxWeightFormula;
-  4: typeof ChlorineWeightFormula;
-  5: typeof MotherSolutionConcentrationFormula;
-}
 
 interface CalculatorFlowStageData {
   step: CalculatorFlowStep;
@@ -88,15 +80,7 @@ export default function CalculatorFlow() {
   const [configName, setConfigName] = useState("");
   const [configDescription, setConfigDescription] = useState("");
 
-  const stepComponents: StepComponentMap = {
-    1: DripRateFormula,
-    2: ReservoirIngressFormula,
-    3: MotherTankMaxWeightFormula,
-    4: ChlorineWeightFormula,
-    5: MotherSolutionConcentrationFormula
-  };
-
-  const CurrentComponent = stepComponents[calculatorFlowStageData.step];
+  // Render the appropriate step component explicitly to keep prop types correct
 
   const handleCalculateIngress = (calculatedValue: number) => {
       setCalculatorFlowStageData((prevData) => ({
@@ -112,7 +96,7 @@ export default function CalculatorFlow() {
       }));
   };
 
-  const handleCalculateChlorineWeight = (calculatedValue: any) => {
+  const handleCalculateChlorineWeight = (calculatedValue: { chlorineWeight: number; desiredConcentration: number }) => {
       setCalculatorFlowStageData((prevData) => ({
           ...prevData,
           chlorineWeightData: {
@@ -144,12 +128,12 @@ export default function CalculatorFlow() {
       // Update shared state with the calculated value
   };
 
-  const handleCalculateMotherTankMaxWeight = (calculatedValue: any) => {
+  const handleCalculateMotherTankMaxWeight = (calculatedValue: { msVolume: number; chlorinePercentage: number; msMaximumWeight: number }) => {
       setCalculatorFlowStageData((prevData) => ({
           ...prevData,
           motherSolutionTankMaxWeightData: {
               ...prevData.motherSolutionTankMaxWeightData,
-              weight: calculatedValue
+              weight: calculatedValue.msMaximumWeight
           }
       }));
       setSharedState((prevState) => ({
@@ -174,25 +158,13 @@ export default function CalculatorFlow() {
       }));
   };
 
-  const getHandlerForStep = (step: CalculatorFlowStep) => {
-    switch (step) {
-      case 1:
-        return handleDripRateData;
-      case 2:
-        return handleCalculateIngress;
-      case 3:
-        return handleCalculateMotherTankMaxWeight;
-      case 4:
-        return handleCalculateChlorineWeight;
-      case 5:
-        return handleCalculateMotherSolutionConcentration;
-    }
-  };
+  // no helper; handlers are passed explicitly by step
 
   function uuidv4() {
     // https://stackoverflow.com/a/2117523/65387
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
   }
@@ -225,7 +197,21 @@ export default function CalculatorFlow() {
     <div className="center">
       <Home/>
       <h1 className="page-header">{`${t('Step')} ${calculatorFlowStageData.step}`}</h1>
-      <CurrentComponent onCalculate={getHandlerForStep(calculatorFlowStageData.step)} sharedState={sharedState} />
+      {calculatorFlowStageData.step === 1 && (
+        <DripRateFormula onCalculate={handleDripRateData} sharedState={sharedState} />
+      )}
+      {calculatorFlowStageData.step === 2 && (
+        <ReservoirIngressFormula onCalculate={handleCalculateIngress} sharedState={sharedState} />
+      )}
+      {calculatorFlowStageData.step === 3 && (
+        <MotherTankMaxWeightFormula onCalculate={handleCalculateMotherTankMaxWeight} sharedState={sharedState} />
+      )}
+      {calculatorFlowStageData.step === 4 && (
+        <ChlorineWeightFormula onCalculate={handleCalculateChlorineWeight} sharedState={sharedState} />
+      )}
+      {calculatorFlowStageData.step === 5 && (
+        <MotherSolutionConcentrationFormula onCalculate={handleCalculateMotherSolutionConcentration} sharedState={{}} />
+      )}
       <div className="navigation-buttons">
         <button 
           onClick={() => setCalculatorFlowStageData(prev => ({

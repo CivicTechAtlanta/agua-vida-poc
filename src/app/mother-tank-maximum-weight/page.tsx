@@ -11,6 +11,7 @@ import LanguageSelector from "../components/LanguageSelector/LanguageSelector";
 import modalData from '../modals/mother-tank-maximum-weight';
 import { formatSig2 } from "../utils/format";
 
+type MotherTankMaxCalc = { msMaximumWeight: number };
 export default function MotherTankMaximumWeightFormula() {
 
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ export default function MotherTankMaximumWeightFormula() {
   const [showModal, setShowModal] = useState(null as string | null);
 
 
-  const handleCalculate = (calculatedValue: any) => {
+  const handleCalculate = (calculatedValue: MotherTankMaxCalc) => {
     setMotherWeightMaximumWeightSolution(calculatedValue.msMaximumWeight || 0);
   };
 

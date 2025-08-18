@@ -10,7 +10,7 @@ import "../../reservoir-ingress/styles/Main.css";
 import modalData from "@/app/modals/drip-rate-modal-data";
 import { formatSig2 } from "@/app/utils/format";
 
-export default function ReservoirIngressFormula({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: any }) {
+export default function ReservoirIngressFormula({ onCalculate }: { onCalculate: (data: number) => void, sharedState: unknown }) {
     const { t } = useTranslation();
 
     const [ingress, setIngress] =
