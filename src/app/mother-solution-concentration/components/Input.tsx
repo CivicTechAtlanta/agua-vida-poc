@@ -1,10 +1,12 @@
 import "../styles/Input.css"
+import type React from "react";
 
 type InputProps = {
   label: string;
   name: string;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   min?: string;
+  defaultValue?: string;
 };
 
 export default function Input({ label, name, min, defaultValue, handleChange }: InputProps) {
