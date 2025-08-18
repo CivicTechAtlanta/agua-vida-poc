@@ -10,6 +10,9 @@ import {
   CalculatorFlowSharedStateData
 } from "./Interfaces";
 
+import modalData from "@/app/modals/drip-rate-modal-data";
+import { formatSig2 } from "@/app/utils/format";
+
 export default function DripRateFormula({ onCalculate, sharedState }: { 
     onCalculate: (data: any) => void,
     sharedState: CalculatorFlowSharedStateData
@@ -64,16 +67,14 @@ export default function DripRateFormula({ onCalculate, sharedState }: {
                                     {t('Submit')}
                                 </button>
 
-                                <h2>{`${t('Drip Rate is')}: ${dripRate.toFixed(2)} ${t('milliliters')}/${t('minute')}`}</h2>
+                                <h2>{`${t('Drip Rate is')}: ${formatSig2(dripRate)} ${t('milliliters')}/${t('minute')}`}</h2>
                         </div>
 
-                    <Modal
-                        show={showModal === 'info'}
-                        closeModal={() => setShowModal(null)}
-                        headerText={['Drip Rate']}
-                        modalText={[t('RechargeText1')]}
-                        imageKey={[null, 'CHLORINE_WEIGHT']}
-                    />
+                        <Modal
+                                show={showModal === 'info'}
+                                closeModal={() => setShowModal(null)}
+                                modalPageData={modalData}
+                        />
                 </div>
         );
 }

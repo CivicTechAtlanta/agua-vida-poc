@@ -10,6 +10,7 @@ import Home from "../components/Home/Home";
 import Modal from '../components/Modal/Modal';
 
 import modalData from '../modals/drip-rate-modal-data';
+import { formatSig2 } from "../utils/format";
 
 export default function DripRateFormula() {
     const { t } = useTranslation();
@@ -45,7 +46,7 @@ export default function DripRateFormula() {
                     <input type="number" value={refillTime} onChange={(event) => { setRefillTime(Number(event.target.value)) }} />
                 </div>
 
-                <h2>{`${t('Drip Rate is')}: ${dripRate.toFixed(2)} ${t('milliliters')}/${t('minute')}`}</h2>
+                <h2>{`${t('Drip Rate is')}: ${formatSig2(dripRate)} ${t('milliliters')}/${t('minute')}`}</h2>
 
                 <button className="button" onClick={() => {
                     setMotherSolutionVolume(0)

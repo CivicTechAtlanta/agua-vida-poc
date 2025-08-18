@@ -10,6 +10,7 @@ import LanguageSelector from "../components/LanguageSelector/LanguageSelector";
 import Modal from '../components/Modal/Modal';
 
 import modalData from '../modals/mother-solution-concentration-modal-data';
+import { formatSig2 } from "../utils/format";
 
 
 import "./styles/Main.css";
@@ -38,7 +39,7 @@ export default function MotherSolutionConcentrationFormula() {
         <h2>{`${t('The concentration of the mother solution is')}:`}</h2>
 
         <p className="answer">
-          {`${concentratedMotherSolution.toFixed(2)} ${t('mg')}/${t('L')}`}
+          {`${formatSig2(concentratedMotherSolution)} ${t('mg')}/${t('L')}`}
         </p>
       </div>
 

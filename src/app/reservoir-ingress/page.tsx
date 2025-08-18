@@ -11,6 +11,7 @@ import Home from "../components/Home/Home";
 import Modal from '../components/Modal/Modal';
 
 import modalData from '../modals/flow-rate-modal-data';
+import { formatSig2 } from "../utils/format";
 
 export default function ReservoirIngressFormula() {
     const { t } = useTranslation();
@@ -35,7 +36,7 @@ export default function ReservoirIngressFormula() {
                 <h2>{t('The flow rate for the reservoir ingress is')}:</h2>
 
                 <p className="answer">
-                    {ingress.toFixed(2)} {t('L')}/{t('s')}
+                    {formatSig2(ingress)} {t('L')}/{t('s')}
                 </p>
 
             </div>

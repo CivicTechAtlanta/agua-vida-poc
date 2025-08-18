@@ -9,6 +9,7 @@ import Modal from '../components/Modal/Modal';
 import LanguageSelector from "../components/LanguageSelector/LanguageSelector";
 
 import modalData from '../modals/mother-tank-maximum-weight';
+import { formatSig2 } from "../utils/format";
 
 export default function MotherTankMaximumWeightFormula() {
 
@@ -18,13 +19,19 @@ export default function MotherTankMaximumWeightFormula() {
   const [showModal, setShowModal] = useState(null as string | null);
 
 
-  const handleCalculate = (calculatedValue: number) => {
-    setMotherWeightMaximumWeightSolution(calculatedValue);
+  const handleCalculate = (calculatedValue: any) => {
+    setMotherWeightMaximumWeightSolution(calculatedValue.msMaximumWeight || 0);
   };
 
   const sharedState = {
-    msVolume: 0, // Placeholder, replace with actual shared state
-    chlorinePercentage: 0 // Placeholder, replace with actual shared state
+    msVolume: 0,
+    chlorinePercentage: 0,
+    reservoirIngress: null,
+    chlorineWeight: null,
+    desiredDripRate: null,
+    msConcentration: null,
+    desiredConcentration: null,
+    refillTime: null,
   };
 
   return (
@@ -40,7 +47,7 @@ export default function MotherTankMaximumWeightFormula() {
       <div className="result-wrapper">
         <h2>{`${t('The maximum weight of the mother tank is')}:`}</h2>
         <p className="answer">
-          {`${Math.trunc(motherWeightMaximumWeightSolution)} ${t('grams')}`} {`(${(motherWeightMaximumWeightSolution / 1000).toFixed(1)} ${t('kilograms')})`}
+          {`${formatSig2(motherWeightMaximumWeightSolution)} ${t('grams')}`} {`(${formatSig2(motherWeightMaximumWeightSolution / 1000)} ${t('kilograms')})`}
         </p>
       </div>
 

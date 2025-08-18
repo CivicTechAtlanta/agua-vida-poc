@@ -10,6 +10,9 @@ import {
   CalculatorFlowSharedStateData
 } from "./Interfaces";
 
+import modalData from '@/app/modals/chlorine-weight-modal-data';
+import { formatSig2 } from "@/app/utils/format";
+
 export default function ChlorineWeightFormula({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: CalculatorFlowSharedStateData }) {
     const { t } = useTranslation();
 
@@ -17,8 +20,6 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
     const [errorMessage, setErrorMessage] = useState('');
 
     const [showModal, setShowModal] = useState(null as string | null);
-
-    console.log('ChlorineWeightFormula sharedState', sharedState);
 
     const [formData, setFormData] = useState({
         motherSolution: sharedState.msVolume || '',
@@ -28,8 +29,9 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
         chlorinePercentage: sharedState.chlorinePercentage || '',
     });
 
-    //Calculate the weight of chlorine needed
-    const chlorineWeight = .36 * ((Number(formData.motherSolution) * Number(formData.waterIngress) * Number(formData.desiredConcentration)) / (Number(formData.dripRate) * Number(formData.chlorinePercentage)))
+    // Calculate with chlorine percentage given as a whole number (e.g., 70 => 0.70)
+    const chlorinePct = (Number(formData.chlorinePercentage) || 0) / 100;
+    const chlorineWeight = .36 * ((Number(formData.motherSolution) * Number(formData.waterIngress) * Number(formData.desiredConcentration)) / (Number(formData.dripRate) * chlorinePct))
 
     const handleClick = () => {
         if (
@@ -116,7 +118,7 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
                     label={`${t('Chlorine Percentage')}`}
                     name='chlorinePercentage'
                     value={formData.chlorinePercentage}
-                    placeholder='0.7'
+                    placeholder='70'
                     handleChange={handleChange}
                 />
 
@@ -125,7 +127,7 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
                 <button className="button" onClick={handleClear}>{t('Clear')}</button>
                 
                 {showText ? (
-                    <p>{`${t('The weight of chlorine needed is')}: ${chlorineWeight} ${t('grams')}`}</p>
+                    <p>{`${t('The weight of chlorine needed is')}: ${formatSig2(chlorineWeight)} ${t('grams')}`}</p>
                 ) : (
                     <button className="button primary" onClick={handleClick}>{t('Submit')}</button>
                 )}
@@ -134,8 +136,8 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
             <Modal
                 show={showModal === 'info'}
                 closeModal={() => setShowModal(null)}
-                headerText='How to Determine Chlorine Weight Formula'
-                imageKey='CHLORINE_WEIGHT'/>
+                modalPageData={modalData}
+            />
 
         </div>
     );

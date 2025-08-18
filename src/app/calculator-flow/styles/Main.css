@@ -1,9 +1,9 @@
 .center {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Start at top so content doesn't get centered off-screen */
   align-items: center;
-  height: 100vh; /* Adjust as needed */
+  min-height: 100vh; /* Allow scrolling if content is taller than viewport */
   text-align: center;
 }
 
@@ -22,4 +22,56 @@ p{
 *{
   padding: 10px;
   box-sizing: border-box;
+}
+
+.navigation-buttons {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+  background: var(--background);
+  z-index: 1;
+}
+
+.nav-button {
+  padding: 8px 14px;
+}
+
+/* Ensure all calculator flow fields and their titles are left-aligned */
+.center .form,
+.center .input-wrapper {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: left; /* override parent center */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: stretch; /* make inputs expand full width */
+}
+
+.center .form .input-group,
+.center .input-wrapper .input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* align label/input to the left */
+  gap: 6px;
+}
+
+.center .form .input-group p,
+.center .input-wrapper .input-group p {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.center .form .input-group input,
+.center .input-wrapper .input-group input {
+  width: 100%;
+  text-align: left;
 }

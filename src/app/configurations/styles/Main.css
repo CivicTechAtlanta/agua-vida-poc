@@ -1,0 +1,169 @@
+/* Base layout fills almost the full width and extends to the top */
+.config-page {
+  /* width: 100vw; */
+  height: 90vh;
+  overflow: hidden;
+  background: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center children horizontally */
+  padding: 0; /* override global padding */
+}
+
+.config-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  justify-content: center; /* center Home button */
+  align-items: center;
+  padding: 8px 0;
+  background: transparent;
+}
+
+.swipe-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Hide horizontal overflow for slides */
+  overflow-y: auto;   /* Allow vertical scrolling when content grows (edit mode) */
+  touch-action: pan-y; /* allow vertical scroll, we handle horizontal */
+  margin: 0 auto; /* keep container centered */
+  padding: 0; /* override global padding */
+}
+
+.swipe-track {
+  display: flex;
+  /* Allow content to exceed viewport height in edit mode */
+  height: auto;
+  min-height: 100%;
+  width: 100%;
+  transition: transform 300ms ease;
+  will-change: transform;
+  padding: 0; /* override global padding */
+}
+
+.card {
+  flex: 0 0 100%; /* Each card takes full viewport width */
+  /* Let the card grow vertically beyond viewport when content requires */
+  height: auto;
+  min-height: 100%;
+  display: flex;
+  /* Let inner content control its own height; don't force vertical stretch */
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0; /* override global padding */
+}
+
+.card-inner {
+  background: #000; /* black background */
+  color: #fff;      /* white text */
+  border: 1px solid #fff; /* white outline */
+  width: 100%; /* exactly the container width */
+  max-width: 100%;
+  /* Let content expand, but ensure a minimum height to account for header/pager */
+  min-height: calc(100% - 64px);
+  height: auto; /* allow full expansion */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  padding: 16px;
+  padding-bottom: 64px; /* ensure bottom buttons aren't hidden behind pager */
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto; /* center within slide */
+  align-items: flex-start; /* left-justify content */
+  text-align: left;  /* left-align headings and text */
+}
+
+/* Pager */
+.pager {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 0; /* override global padding */
+}
+
+.dot {
+  /* reset button defaults */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  /* circle sizing */
+  width: 10px;
+  height: 10px;
+  aspect-ratio: 1 / 1;
+  border-radius: 9999px;
+  display: inline-block;
+  background: #bbb;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: #288DCE;
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .card-inner {
+  width: 100%;
+  max-width: 100%;
+  min-height: calc(100% - 72px);
+  height: auto;
+  margin: 0 auto;
+  }
+  .config-header {
+    padding: 10px 0;
+  }
+}
+
+/* Blue button style to match home page formula buttons */
+.blue-btn {
+  background-color: #4848c6;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  color: #fff;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.blue-btn:hover {
+  opacity: 0.7;
+}
+
+/* Red danger button for destructive actions */
+.danger-btn {
+  background-color: #c64848;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  color: #fff;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.danger-btn:hover {
+  opacity: 0.8;
+}
+
+/* Green success button for primary confirm actions */
+.success-btn {
+  background-color: #48C687; /* matches home icon green */
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  color: #000; /* dark text for contrast on light green */
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.success-btn:hover {
+  opacity: 0.85;
+}

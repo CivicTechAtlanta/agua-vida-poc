@@ -13,7 +13,7 @@ const modalData = {
         {
             headerText: 'Chlorine Weight Formula Header 3',
             modalText: 'chlorine weight text 3',
-            imageKey: null,
+            imageKey: 'CHLORINE_WEIGHT_3',
         }
     ]
 };

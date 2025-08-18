@@ -8,6 +8,7 @@ import Home from '../components/Home/Home';
 import Modal from '../components/Modal/Modal';
 import LanguageSelector from "../components/LanguageSelector/LanguageSelector";
 import modalData from '../modals/chlorine-weight-modal-data';
+import { formatSig2 } from "../utils/format";
 
 
 export default function ChlorineWeightFormula() {
@@ -26,8 +27,9 @@ export default function ChlorineWeightFormula() {
         chlorinePercentage: '',
     });
 
-    //Calculate the weight of chlorine needed
-    const chlorineWeight = .36 * ((Number(formData.motherSolution) * Number(formData.waterIngress) * Number(formData.desiredConcentration)) / (Number(formData.dripRate) * Number(formData.chlorinePercentage)))
+    // Calculate with chlorine percentage given as a whole number (e.g., 70 => 0.70)
+    const chlorinePct = (Number(formData.chlorinePercentage) || 0) / 100;
+    const chlorineWeight = .36 * ((Number(formData.motherSolution) * Number(formData.waterIngress) * Number(formData.desiredConcentration)) / (Number(formData.dripRate) * chlorinePct))
 
     const handleClick = () => {
         if (
@@ -108,14 +110,14 @@ export default function ChlorineWeightFormula() {
                     label={`${t('Chlorine Percentage')}`}
                     name='chlorinePercentage'
                     value={formData.chlorinePercentage}
-                    placeholder='0.7'
+                    placeholder='70'
                     handleChange={handleChange}
                 />
 
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
                 {showText ? (
-                    <p>{`${t('The weight of chlorine needed is')}: ${chlorineWeight} ${t('grams')}`}</p>
+                    <p>{`${t('The weight of chlorine needed is')}: ${formatSig2(chlorineWeight)} ${t('grams')}`}</p>
                 ) : (
                     <button className="button primary" onClick={handleClick}>{t('Show Chlorine Weight')}</button>
                 )}

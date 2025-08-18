@@ -154,3 +154,9 @@ button {
     color-scheme: dark;
   }
 }
+
+/* Hide Next.js internal accessibility/portal elements globally */
+nextjs-portal,
+next-route-announcer {
+  display: none !important;
+}

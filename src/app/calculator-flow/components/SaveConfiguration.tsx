@@ -11,7 +11,7 @@ import "../../mother-solution-concentration/styles/Main.css";
 import modalData from "../../modals/mother-solution-concentration-modal-data";
 import { formatSig2 } from "@/app/utils/format";
 
-export default function MotherSolutionConcentrationFormula({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: object }) {
+export default function SaveConfigurationPage({ onCalculate, sharedState }: { onCalculate: (data: any) => void, sharedState: object }) {
   const { t } = useTranslation();
 
   const [concentratedMotherSolution, setConcentratedMotherSolution] =
