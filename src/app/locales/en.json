@@ -80,5 +80,26 @@
 
     "mother solution max weight header 1" : "The Max Weight of the Mother Tank",
 
-    "mother solution max weight text 1" : "There is a recommended maximum weight of the mother tank, which is 50 kilograms. This is to ensure that the tank is manageable and the water is not strongly chlorinated."
+    "mother solution max weight text 1" : "There is a recommended maximum weight of the mother tank, which is 50 kilograms. This is to ensure that the tank is manageable and the water is not strongly chlorinated.",
+
+    "configurations.no_configurations": "No configurations",
+    "configurations.add_configuration_message": "Add a configuration to see it here.",
+    "configurations.configuration": "Configuration",
+    "configurations.edit": "Edit",
+    "configurations.name": "Name",
+    "configurations.description": "Description",
+    "configurations.ms_volume": "MS Volume",
+    "configurations.chlorine_percentage": "Chlorine %",
+    "configurations.reservoir_ingress": "Reservoir Ingress",
+    "configurations.chlorine_weight": "Chlorine Weight",
+    "configurations.desired_drip_rate": "Desired Drip Rate",
+    "configurations.ms_concentration": "MS Concentration",
+    "configurations.desired_concentration": "Desired Concentration",
+    "configurations.refill_time": "Refill Time",
+    "configurations.save": "Save",
+    "configurations.delete": "Delete",
+    "configurations.cancel": "Cancel",
+    "configurations.created": "Created",
+    "configurations.delete_confirmation": "Delete this configuration? This cannot be undone.",
+    "configurations.go_to_slide": "Go to slide"
 }

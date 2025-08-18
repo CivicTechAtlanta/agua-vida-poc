@@ -81,5 +81,26 @@
     "flow rate header 2" : "Contenedores",
 
     "flow rate text 1" : "El caudal de entrada del reservorio es la tasa a la que el agua entra en el reservorio en litros por segundo. Se recomienda medir regularmente este caudal, ya que diferentes factores, como el clima o la época del año, pueden afectar la entrada de agua.",
-    "flow rate text 2" : "Siempre que tenga el tamaño del contenedor y el tiempo que tarda en llenarse, puede usar cualquier contenedor para medir el caudal."
+    "flow rate text 2" : "Siempre que tenga el tamaño del contenedor y el tiempo que tarda en llenarse, puede usar cualquier contenedor para medir el caudal.",
+
+    "configurations.no_configurations": "Sin configuraciones",
+    "configurations.add_configuration_message": "Agregue una configuración para verla aquí.",
+    "configurations.configuration": "Configuración",
+    "configurations.edit": "Editar",
+    "configurations.name": "Nombre",
+    "configurations.description": "Descripción",
+    "configurations.ms_volume": "Volumen MS",
+    "configurations.chlorine_percentage": "% de Cloro",
+    "configurations.reservoir_ingress": "Entrada del Reservorio",
+    "configurations.chlorine_weight": "Peso del Cloro",
+    "configurations.desired_drip_rate": "Tasa de Goteo Deseada",
+    "configurations.ms_concentration": "Concentración MS",
+    "configurations.desired_concentration": "Concentración Deseada",
+    "configurations.refill_time": "Tiempo de Recarga",
+    "configurations.save": "Guardar",
+    "configurations.delete": "Eliminar",
+    "configurations.cancel": "Cancelar",
+    "configurations.created": "Creado",
+    "configurations.delete_confirmation": "¿Eliminar esta configuración? Esto no se puede deshacer.",
+    "configurations.go_to_slide": "Ir a la diapositiva"
 }

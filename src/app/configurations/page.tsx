@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import Home from "../components/Home/Home";
 
@@ -78,6 +79,7 @@ const fromDraft = (d: DraftConfig): ConfigurationsPageProps => ({
 const formatNum = formatSig2;
 
 export default function ConfigurationsPage() {
+  const { t } = useTranslation();
   const [configurations, setConfigurations] = useState<StoredConfig[]>([]);
   const [index, setIndex] = useState(0);
   const [dragX, setDragX] = useState(0);
@@ -179,7 +181,7 @@ export default function ConfigurationsPage() {
     if (typeof window === 'undefined') return;
     const item = configurations[i];
     if (!item) return;
-    const confirmed = window.confirm('Delete this configuration? This cannot be undone.');
+    const confirmed = window.confirm(t('configurations.delete_confirmation'));
     if (!confirmed) return;
     try {
       window.localStorage.removeItem(item.key);
@@ -219,8 +221,8 @@ export default function ConfigurationsPage() {
           {configurations.length === 0 ? (
             <section className="card" key="empty">
               <div className="card-inner">
-                <h2>No configurations</h2>
-                <p>Add a configuration to see it here.</p>
+                <h2>{t('configurations.no_configurations')}</h2>
+                <p>{t('configurations.add_configuration_message')}</p>
               </div>
             </section>
           ) : (
@@ -229,19 +231,19 @@ export default function ConfigurationsPage() {
                 <div className="card-inner">
                   <div style={{ display: 'flex', width: '100%', alignItems: 'center' }}>
                     <h2 style={{ flex: 1 }}>
-                      {cfg.chlorinationConfigName ?? `Configuration ${i + 1}`}
+                      {cfg.chlorinationConfigName ?? `${t('configurations.configuration')} ${i + 1}`}
                     </h2>
                     {editingIndex === i ? (
                       <></>
                     ) : (
-                      <button onClick={() => beginEdit(i)} className="blue-btn">Edit</button>
+                      <button onClick={() => beginEdit(i)} className="blue-btn">{t('configurations.edit')}</button>
                     )}
                   </div>
 
           {editingIndex === i ? (
           <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 12, width: '100%', flex: 1 }}>
             <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <span>Name</span>
+                        <span>{t('configurations.name')}</span>
                         <input
                           value={draft?.chlorinationConfigName ?? ''}
                           onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), chlorinationConfigName: e.target.value }))}
@@ -249,7 +251,7 @@ export default function ConfigurationsPage() {
                         />
                       </label>
             <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <span>Description</span>
+                        <span>{t('configurations.description')}</span>
                         <input
                           value={draft?.chlorinationConfigDescription ?? ''}
                           onChange={(e) => setDraft((d) => ({ ...(d as DraftConfig), chlorinationConfigDescription: e.target.value }))}
@@ -257,7 +259,7 @@ export default function ConfigurationsPage() {
                         />
                       </label>
             <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <span>MS Volume</span>
+                        <span>{t('configurations.ms_volume')}</span>
                         <input
                           type="number"
                           step="any"
@@ -267,7 +269,7 @@ export default function ConfigurationsPage() {
                         />
                       </label>
             <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <span>Chlorine %</span>
+                        <span>{t('configurations.chlorine_percentage')}</span>
                         <input
                           type="number"
                           step="any"
@@ -277,7 +279,7 @@ export default function ConfigurationsPage() {
                         />
                       </label>
             <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <span>Reservoir Ingress</span>
+                        <span>{t('configurations.reservoir_ingress')}</span>
                         <input
                           type="number"
                           step="any"
@@ -287,7 +289,7 @@ export default function ConfigurationsPage() {
                         />
                       </label>
             <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <span>Chlorine Weight</span>
+                        <span>{t('configurations.chlorine_weight')}</span>
                         <input
                           type="number"
                           step="any"
@@ -297,7 +299,7 @@ export default function ConfigurationsPage() {
                         />
                       </label>
             <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <span>Desired Drip Rate</span>
+                        <span>{t('configurations.desired_drip_rate')}</span>
                         <input
                           type="number"
                           step="any"
@@ -307,7 +309,7 @@ export default function ConfigurationsPage() {
                         />
                       </label>
             <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <span>MS Concentration</span>
+                        <span>{t('configurations.ms_concentration')}</span>
                         <input
                           type="number"
                           step="any"
@@ -317,7 +319,7 @@ export default function ConfigurationsPage() {
                         />
                       </label>
             <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <span>Desired Concentration</span>
+                        <span>{t('configurations.desired_concentration')}</span>
                         <input
                           type="number"
                           step="any"
@@ -327,7 +329,7 @@ export default function ConfigurationsPage() {
                         />
                       </label>
             <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-                        <span>Refill Time</span>
+                        <span>{t('configurations.refill_time')}</span>
                         <input
                           type="number"
                           step="any"
@@ -337,9 +339,9 @@ export default function ConfigurationsPage() {
                         />
                       </label>
                       <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 10, width: '100%' }}>
-                        <button onClick={saveEdit} className="success-btn" style={{ width: '100%' }}>Save</button>
-                        <button onClick={() => deleteConfig(i)} className="danger-btn" style={{ width: '100%' }}>Delete</button>
-                        <button onClick={cancelEdit} className="blue-btn" style={{ width: '100%' }}>Cancel</button>
+                        <button onClick={saveEdit} className="success-btn" style={{ width: '100%' }}>{t('configurations.save')}</button>
+                        <button onClick={() => deleteConfig(i)} className="danger-btn" style={{ width: '100%' }}>{t('configurations.delete')}</button>
+                        <button onClick={cancelEdit} className="blue-btn" style={{ width: '100%' }}>{t('configurations.cancel')}</button>
                       </div>
                     </div>
                   ) : (
@@ -351,7 +353,7 @@ export default function ConfigurationsPage() {
                       )}
                       {cfg.chlorinationConfigTimeCreated && (
                         <p style={{ marginTop: 8, opacity: 0.8 }}>
-                          Created: {new Date(cfg.chlorinationConfigTimeCreated).toLocaleString()}
+                          {t('configurations.created')}: {new Date(cfg.chlorinationConfigTimeCreated).toLocaleString()}
                         </p>
                       )}
                       <div
@@ -366,28 +368,28 @@ export default function ConfigurationsPage() {
                         }}
                       >
                         <div>
-                          <strong>MS Volume:</strong> {formatNum(cfg.msVolume)}
+                          <strong>{t('configurations.ms_volume')}:</strong> {formatNum(cfg.msVolume)}
                         </div>
                         <div>
-                          <strong>Chlorine %:</strong> {formatNum(cfg.chlorinePercentage)}
+                          <strong>{t('configurations.chlorine_percentage')}:</strong> {formatNum(cfg.chlorinePercentage)}
                         </div>
                         <div>
-                          <strong>Reservoir Ingress:</strong> {formatNum(cfg.reservoirIngress)}
+                          <strong>{t('configurations.reservoir_ingress')}:</strong> {formatNum(cfg.reservoirIngress)}
                         </div>
                         <div>
-                          <strong>Chlorine Weight:</strong> {formatNum(cfg.chlorineWeight)}
+                          <strong>{t('configurations.chlorine_weight')}:</strong> {formatNum(cfg.chlorineWeight)}
                         </div>
                         <div>
-                          <strong>Desired Drip Rate:</strong> {formatNum(cfg.desiredDripRate)}
+                          <strong>{t('configurations.desired_drip_rate')}:</strong> {formatNum(cfg.desiredDripRate)}
                         </div>
                         <div>
-                          <strong>MS Concentration:</strong> {formatNum(cfg.msConcentration)}
+                          <strong>{t('configurations.ms_concentration')}:</strong> {formatNum(cfg.msConcentration)}
                         </div>
                         <div>
-                          <strong>Desired Concentration:</strong> {formatNum(cfg.desiredConcentration)}
+                          <strong>{t('configurations.desired_concentration')}:</strong> {formatNum(cfg.desiredConcentration)}
                         </div>
                         <div>
-                          <strong>Refill Time:</strong> {formatNum(cfg.refillTime)}
+                          <strong>{t('configurations.refill_time')}:</strong> {formatNum(cfg.refillTime)}
                         </div>
                       </div>
                     </>
@@ -403,7 +405,7 @@ export default function ConfigurationsPage() {
           <button
             key={i}
             className={"dot" + (i === index ? " active" : "")}
-            aria-label={`Go to slide ${i + 1}`}
+            aria-label={`${t('configurations.go_to_slide')} ${i + 1}`}
             onClick={() => { if (editingIndex === null) setIndex(i); }}
           />
         ))}
