@@ -38,7 +38,7 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
     });
 
     // Calculate with chlorine percentage given as a whole number (e.g., 70 => 0.70)
-    const chlorinePct = (Number(formData.chlorinePercentage) || 0) / 100;
+    const chlorinePct = (Number(formData.chlorinePercentage) || 0);
 
     const chlorineWeight = ( Number(formData.waterIngress) * (Number(formData.rechargeTimeDays) * 86400)  *  Number(formData.desiredConcentration) ) / (10 * chlorinePct)
 
