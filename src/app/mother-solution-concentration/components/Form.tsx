@@ -67,9 +67,9 @@ export default function Form({ onCalculate, sharedState }: FormProps) {
     onCalculate(newConcentratedMotherSolution);
   };
 
-  const motherSolutionVolumeLabel = `${t('Mother Solution Volume')} (${t('L')})`;
-  const weightOfChlorineLabel = `${'Weight of Chlorine'} (${t('g')})`;
-  const desiredReservoirConcentrationLabel = `${'Desired Reservoir Concentration'} (${t('mg')}/${t('L')})`;
+  const motherSolutionVolumeLabel = `${t('Mother Solution Volume')} (${t('liters')})`;
+  const weightOfChlorineLabel = `${t('Weight of Chlorine')} (${t('grams')})`;
+  const desiredReservoirConcentrationLabel = `${t('Desired Reservoir Concentration')} (${t('milligrams')}/${t('liters')})`;
 
   return (
     <form className="form" onSubmit={handleSubmit}>

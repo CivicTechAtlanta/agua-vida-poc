@@ -49,7 +49,7 @@ export default function DripRateFormula({ onCalculate, sharedState }: {
                                 </div>
 
                                 <div className="input-group">
-                                        <label>{`${t('Refill time')} (${t('days')})`}</label>
+                                        <label>{`${t('Refill Time')} (${t('days')})`}</label>
                                         <input type="number" value={refillTime} onChange={(event) => { setRefillTime(Number(event.target.value)) }} />
                                 </div>
 
