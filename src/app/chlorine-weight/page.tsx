@@ -26,7 +26,7 @@ export default function ChlorineWeightFormula() {
         rechargeTimeDays: '',
     });
 
-    const chlorinePct = (Number(formData.chlorinePercentage) || 0) / 100;
+    const chlorinePct = (Number(formData.chlorinePercentage) || 0);
     const chlorineWeight = ( Number(formData.waterIngress) * (Number(formData.rechargeTimeDays) * 86400)  *  Number(formData.desiredConcentration) ) / (10 * chlorinePct)
 
     const handleClick = () => {

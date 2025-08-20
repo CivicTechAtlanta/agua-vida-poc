@@ -12,7 +12,7 @@ type FormProps = {
     msVolume?: number | null;
     chlorineWeight?: number | null;
     msConcentration?: number | null;
-    desiredConcentration?: number | null;
+    chlorinePercentage?: number | null;
   };
 };
 
@@ -23,11 +23,11 @@ export default function Form({ onCalculate, sharedState }: FormProps) {
   const [formData, setFormData] = useState<{
     motherSolutionVolume: number;
     weightOfChlorine: number;
-    desiredReservoirConcentration: number;
+    chlorinePercentage: number;
   }>({
     motherSolutionVolume: sharedState.msVolume || 0,
     weightOfChlorine: sharedState.chlorineWeight || 0,
-    desiredReservoirConcentration: sharedState.desiredConcentration || 0,
+    chlorinePercentage: sharedState.chlorinePercentage || 0,
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +43,7 @@ export default function Form({ onCalculate, sharedState }: FormProps) {
     setFormData({
       motherSolutionVolume: 0,
       weightOfChlorine: 0,
-      desiredReservoirConcentration: 0,
+      chlorinePercentage: 0,
     });
   }
 
@@ -52,24 +52,26 @@ export default function Form({ onCalculate, sharedState }: FormProps) {
     const {
       motherSolutionVolume,
       weightOfChlorine,
-      desiredReservoirConcentration,
+      chlorinePercentage,
     } = formData;
 
     let newConcentratedMotherSolution;
     if (motherSolutionVolume != 0) {
       newConcentratedMotherSolution =
-        (weightOfChlorine * 10 * desiredReservoirConcentration) /
+        (weightOfChlorine * 1000 * (chlorinePercentage / 100)) /
         motherSolutionVolume;
     } else {
       newConcentratedMotherSolution = 0;
     }
+
+    console.log(newConcentratedMotherSolution)
 
     onCalculate(newConcentratedMotherSolution);
   };
 
   const motherSolutionVolumeLabel = `${t('Mother Solution Volume')} (${t('liters')})`;
   const weightOfChlorineLabel = `${t('Weight of Chlorine')} (${t('grams')})`;
-  const desiredReservoirConcentrationLabel = `${t('Desired Reservoir Concentration')} (${t('milligrams')}/${t('liters')})`;
+  const chlorinePercentageLabel = `${t('Chlorine Percentage')} (%)`;
 
   return (
     <form className="form" onSubmit={handleSubmit}>
@@ -88,11 +90,11 @@ export default function Form({ onCalculate, sharedState }: FormProps) {
         defaultValue={formData.weightOfChlorine.toString()}
       />
       <Input
-        label={desiredReservoirConcentrationLabel}
-        name="desiredReservoirConcentration"
+        label={chlorinePercentageLabel}
+        name="chlorinePercentage"
         min="0"
         handleChange={handleChange}
-        defaultValue={formData.desiredReservoirConcentration.toString()}
+        defaultValue={formData.chlorinePercentage.toString()}
       />
       <button type="reset" className="button" onClick={clear}>
         {t('Clear')}

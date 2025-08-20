@@ -9,10 +9,12 @@ import Form from "../../mother-solution-concentration/components/Form";
 import "../../mother-solution-concentration/styles/Main.css";
 
 import modalData from "../../modals/mother-solution-concentration-modal-data";
-import { formatSig2 } from "@/app/utils/format";
-
 
 import { CalculatorFlowSharedStateData } from "./Interfaces";
+
+const formatTwoDecimalPlaces = (num: number): string => {
+  return num.toFixed(2);
+};
 
 export default function MotherSolutionConcentrationFormula({ onCalculate, sharedState }: { onCalculate: (data: number) => void, sharedState: CalculatorFlowSharedStateData }) {
 
@@ -41,7 +43,7 @@ export default function MotherSolutionConcentrationFormula({ onCalculate, shared
         <h2>{`${t('The concentration of the mother solution is')}:`}</h2>
 
         <p className="answer">
-          {`${formatSig2(concentratedMotherSolution)} ${t('milligrams')}/${t('liters')}`}
+          {`${formatTwoDecimalPlaces(concentratedMotherSolution)} ${t('milligrams')}/${t('liters')}`}
         </p>
       </div>
       <Modal
