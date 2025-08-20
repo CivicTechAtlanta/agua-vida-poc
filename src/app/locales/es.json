@@ -31,6 +31,7 @@
     "The ingress formula is": "La fórmula de entrada es",
     "days": "días",
     "hours": "horas",
+    "liter": "litro",
     "liters": "litros",
     "second": "segundo",
     "minute": "minuto",
@@ -82,6 +83,16 @@
 
     "flow rate text 1" : "El caudal de entrada del reservorio es la tasa a la que el agua entra en el reservorio en litros por segundo. Se recomienda medir regularmente este caudal, ya que diferentes factores, como el clima o la época del año, pueden afectar la entrada de agua.",
     "flow rate text 2" : "Siempre que tenga el tamaño del contenedor y el tiempo que tarda en llenarse, puede usar cualquier contenedor para medir el caudal.",
+
+    "mother solution max weight header 1" : "El Peso Máximo del Tanque Madre",
+
+    "mother solution max weight text 1" : "Existe un peso máximo recomendado para el tanque madre, que es de 50 kilogramos. Esto es para asegurar que el tanque sea manejable y que el agua no esté fuertemente clorada.",
+
+    "Save Configuration": "Guardar Configuración",
+    "Configuration Name": "Nombre de Configuración",
+    "Description": "Descripción",
+    "Enter a name": "Ingrese un nombre",
+    "Enter a description": "Ingrese una descripción",
 
     "configurations.no_configurations": "Sin configuraciones",
     "configurations.add_configuration_message": "Agregue una configuración para verla aquí.",

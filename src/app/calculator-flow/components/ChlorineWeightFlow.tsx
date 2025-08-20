@@ -15,10 +15,8 @@ import { formatSig2 } from "@/app/utils/format";
 
 type ChlorineWeightCalc = {
     chlorineWeight: number;
-    msVolume: number | string;
     waterIngress: number | string;
     desiredConcentration: number;
-    dripRate: number | string;
     chlorinePercentage: number | string;
 };
 
@@ -30,25 +28,26 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
 
     const [showModal, setShowModal] = useState(null as string | null);
 
+    console.log("SharedState", sharedState)
+
     const [formData, setFormData] = useState({
-        motherSolution: sharedState.msVolume || '',
         waterIngress: sharedState.reservoirIngress || '',
         desiredConcentration: sharedState.desiredConcentration || '',
-        dripRate: sharedState.desiredDripRate || '',
         chlorinePercentage: sharedState.chlorinePercentage || '',
+        rechargeTimeDays: sharedState.refillTime || '',
     });
 
     // Calculate with chlorine percentage given as a whole number (e.g., 70 => 0.70)
     const chlorinePct = (Number(formData.chlorinePercentage) || 0) / 100;
-    const chlorineWeight = .36 * ((Number(formData.motherSolution) * Number(formData.waterIngress) * Number(formData.desiredConcentration)) / (Number(formData.dripRate) * chlorinePct))
+
+    const chlorineWeight = ( Number(formData.waterIngress) * (Number(formData.rechargeTimeDays) * 86400)  *  Number(formData.desiredConcentration) ) / (10 * chlorinePct)
 
     const handleClick = () => {
         if (
-            formData.motherSolution === '' ||
             formData.waterIngress === '' ||
             formData.desiredConcentration === '' ||
-            formData.dripRate === '' ||
-            formData.chlorinePercentage === ''
+            formData.chlorinePercentage === '' ||
+            formData.rechargeTimeDays === ''
         ) {
             setErrorMessage('Please fill all inputs');
             setShowText(false);
@@ -57,10 +56,8 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
             setShowText(true);
             onCalculate({
                 chlorineWeight: chlorineWeight,
-                msVolume: formData.motherSolution,
                 waterIngress: formData.waterIngress,
                 desiredConcentration: Number(formData.desiredConcentration),
-                dripRate: formData.dripRate,
                 chlorinePercentage: formData.chlorinePercentage
             });
         }
@@ -96,35 +93,28 @@ export default function ChlorineWeightFormula({ onCalculate, sharedState }: { on
 
             <div className="input-wrapper">
                 <Input
-                    label={`${t('Mother Solution')} (${t('liters')})`}
-                    name='motherSolution'
-                    value={formData.motherSolution}
-                    placeholder='600'
+                    label={`${t('Refill Time')} (${t('days')})`}
+                    name='rechargeTimeDays'
+                    value={formData.rechargeTimeDays}
+                    placeholder='7'
                     handleChange={handleChange}
                 />
                 <Input
-                    label={`${t('Water Ingress')} (${t('liters')}/${'second'})`}
+                    label={`${t('Water Ingress')} (${t('liters')}/${t('second')})`}
                     name='waterIngress'
                     value={formData.waterIngress}
                     placeholder='20'
                     handleChange={handleChange}
                 />
                 <Input
-                    label={`${t('Desired Concentration')} (${t('miligrams')}/${'liter'})`}
+                    label={`${t('Desired Concentration')} (${t('milligrams')}/${t('liter')})`}
                     name='desiredConcentration'
                     value={formData.desiredConcentration}
                     placeholder='1'
                     handleChange={handleChange}
                 />
                 <Input
-                    label={`${t('Drip Rate')} (${t('liters')}/${'hour'})`}
-                    name='dripRate'
-                    value={formData.dripRate}
-                    placeholder='2'
-                    handleChange={handleChange}
-                />
-                <Input
-                    label={`${t('Chlorine Percentage')}`}
+                    label={`${t('Chlorine Percentage')} (%)`}
                     name='chlorinePercentage'
                     value={formData.chlorinePercentage}
                     placeholder='70'

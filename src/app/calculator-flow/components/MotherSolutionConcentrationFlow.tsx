@@ -41,7 +41,7 @@ export default function MotherSolutionConcentrationFormula({ onCalculate, shared
         <h2>{`${t('The concentration of the mother solution is')}:`}</h2>
 
         <p className="answer">
-          {`${formatSig2(concentratedMotherSolution)} ${t('mg')}/${t('L')}`}
+          {`${formatSig2(concentratedMotherSolution)} ${t('milligrams')}/${t('liters')}`}
         </p>
       </div>
       <Modal

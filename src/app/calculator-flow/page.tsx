@@ -287,8 +287,8 @@ export default function CalculatorFlow() {
               />
             </label>
             <div style={{display:'flex',gap:12,justifyContent:'flex-end'}}>
-              <button onClick={() => setShowSavePopup(false)} style={{padding:'8px 16px'}}>{t('Cancel')}</button>
-              <button onClick={saveSharedState} style={{padding:'8px 16px',background:'#288DCE',color:'#fff',border:'none',borderRadius:4}}>{t('Save')}</button>
+              <button onClick={() => setShowSavePopup(false)} style={{padding:'8px 16px'}}>{t('configurations.cancel')}</button>
+              <button onClick={saveSharedState} style={{padding:'8px 16px',background:'#288DCE',color:'#fff',border:'none',borderRadius:4}}>{t('configurations.save')}</button>
             </div>
           </div>
         </div>

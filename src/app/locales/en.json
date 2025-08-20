@@ -32,6 +32,7 @@
     "The ingress formula is": "The ingress formula is",
     "days": "days",
     "hours": "hours",
+    "liter": "liter",
     "liters": "liters",
     "minute": "minute",
     "second": "second",
@@ -81,6 +82,15 @@
     "mother solution max weight header 1" : "The Max Weight of the Mother Tank",
 
     "mother solution max weight text 1" : "There is a recommended maximum weight of the mother tank, which is 50 kilograms. This is to ensure that the tank is manageable and the water is not strongly chlorinated.",
+
+    "Mother Tank Maximum Weight Formula": "Mother Tank Maximum Weight Formula",
+    "The maximum weight of the mother tank is": "The maximum weight of the mother tank is",
+
+    "Save Configuration": "Save Configuration",
+    "Configuration Name": "Configuration Name",
+    "Description": "Description",
+    "Enter a name": "Enter a name",
+    "Enter a description": "Enter a description",
 
     "configurations.no_configurations": "No configurations",
     "configurations.add_configuration_message": "Add a configuration to see it here.",
